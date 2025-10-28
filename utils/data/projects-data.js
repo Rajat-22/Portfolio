@@ -19,6 +19,15 @@ export const projectsData = [
     },
     {
         id: 3,
+        name: 'Tap \'n\' Play',
+        description: "A fun mini-games project built with React, featuring classic games like Tic Tac Toe, Quiz, and Play & Pause. It showcases interactive UI, state management, and responsive design.",
+        tools: ['React', 'JavaScript', 'CSS'],
+        role: 'Full Stack Developer',
+        code: '',
+        demo: 'https://tic-tac-toe-two-self-19.vercel.app/',
+    },
+    {
+        id: 4,
         name: 'Portfolio',
         description: 'A responsive and interactive personal portfolio website built using React/Next.js to highlight professional skills, projects, and achievements. The platform is designed with modern UI/UX principles, fast performance optimization, and SEO-friendly architecture to create a strong online presence. Features include smooth navigation, project sections, contact integrations etc.',
         tools: ['React', 'JavaScript', 'Next.js', 'BootStrap', 'HTML & CSS'],
