@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-const AnimationLottie = ({ animationPath, width }) => {
+const AnimationLottie = ({ animationPath, width, className }) => {
   const [Lottie, setLottie] = useState(null);
 
   useEffect(() => {
@@ -13,12 +13,14 @@ const AnimationLottie = ({ animationPath, width }) => {
   if (!Lottie) return null; // or a loader
 
   return (
+    <div className={className}>
     <Lottie
       loop
       autoplay
       animationData={animationPath}
       style={{ width: width || "95%" }}
     />
+    </div>
   );
 };
 
