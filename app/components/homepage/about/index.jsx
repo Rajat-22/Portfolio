@@ -37,14 +37,14 @@ function AboutSection() {
           </div>
         </div>
         <div className="flex justify-center order-1 lg:order-2 w-90 h-100">
-          <AnimationLottie animationPath={menCoding} />
-          {/* <Image
+          <AnimationLottie animationPath={menCoding} className="hidden md:block" />
+          <Image
             src={personalData.profile}
-            width={350}
-            height={300}
+            width={200}
+            height={200}
             alt="Rajat Sharma"
-            className="rounded-lg transition-all duration-1000 grayscale hover:grayscale-0 hover:scale-110 cursor-pointer"
-          /> */}
+          className="block md:hidden w-48 h-48 rounded-full object-cover transition-all duration-1000 grayscale hover:grayscale-0 hover:scale-110 cursor-pointer"
+         />
         </div>
       </div>
     </div>

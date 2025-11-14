@@ -4,10 +4,8 @@ import { personalData } from "@/utils/data/personal-data";
 import Image from "next/image";
 import Link from "next/link";
 import { BsGithub, BsLinkedin } from "react-icons/bs";
-import { FaFacebook, FaTwitterSquare } from "react-icons/fa";
 import { MdDownload } from "react-icons/md";
 import { RiContactsFill } from "react-icons/ri";
-import { SiLeetcode } from "react-icons/si";
 import coding from '../../../assets/lottie/coding.json';
 import AnimationLottie from "../../helper/animation-lottie";
 import React, { useEffect, useState } from 'react';
@@ -35,7 +33,7 @@ function HeroSection() {
       />
 
       <div className="grid grid-cols-1 items-start lg:grid-cols-2 lg:gap-12 gap-y-8">
-        <div className="order-2 lg:order-1 flex flex-col items-start justify-center p-2 pb-20 md:pb-10 lg:pt-10">
+        <div className="order-2 lg:order-1 flex flex-col items-start justify-center p-2 md:pb-10 lg:pt-10">
           <h1 className="text-3xl font-bold leading-10 text-white md:font-extrabold lg:text-[2.6rem] lg:leading-[3.5rem]">
             Hello, <br />
             This is {' '}
@@ -60,27 +58,6 @@ function HeroSection() {
             >
               <BsLinkedin size={30} />
             </Link>
-            {/* <Link
-              href={personalData.facebook}
-              target='_blank'
-              className="transition-all text-[#00FFFF] hover:scale-125 duration-300"
-            >
-              <FaFacebook size={30} />
-            </Link>
-            <Link
-              href={personalData.leetcode}
-              target='_blank'
-              className="transition-all text-pink-500 hover:scale-125 duration-300"
-            >
-              <SiLeetcode size={30} />
-            </Link>
-            <Link
-              href={personalData.twitter}
-              target='_blank'
-              className="transition-all text-[#00FFFF] hover:scale-125 duration-300"
-            >
-              <FaTwitterSquare size={30} />
-            </Link> */}
           </div>
 
           <div className="flex items-center gap-3">
@@ -99,7 +76,7 @@ function HeroSection() {
           </div>
 
         </div>
-        <AnimationLottie animationPath={coding} />
+        <AnimationLottie animationPath={coding} className="hidden md:block" />
 
         {/* <div className="order-1 lg:order-2 from-[#0d1224] border-[#1b2c68a0] relative rounded-lg border bg-gradient-to-r to-[#0a0d37]">
           <div className="flex flex-row">
