@@ -1,11 +1,6 @@
 // @flow strict
 import Link from "next/link";
-import { Great_Vibes } from 'next/font/google';
-
-const greatVibes = Great_Vibes({
-  subsets: ['latin'],
-  weight: ['400'],
-});
+import RotatingProfile from "./helper/RotatingProfile";
 
 
 function Navbar() {
@@ -14,12 +9,7 @@ function Navbar() {
       <div className="flex items-center justify-between py-5">
 
         <div className="flex flex-shrink-0 items-center">
-          <Link
-            href="/"
-            className={`${greatVibes.className} text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-500 to-yellow-500 text-4xl tracking-wide transform rotate-[-7deg] hover:rotate-[-3deg] hover:scale-105 transition-transform duration-300`}
-          >
-            Rajat Sharma
-          </Link>
+          <RotatingProfile />
         </div>
 
 
