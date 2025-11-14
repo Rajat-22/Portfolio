@@ -51,7 +51,7 @@ export default function RotatingProfile() {
           className="absolute inset-0 rounded-full"
           style={{
             border: "2px solid transparent",
-            borderTopColor: "#ff4040",
+            borderTopColor: "#ec4899",
             transform: "rotate(120deg)",
           }}
         />
@@ -59,7 +59,7 @@ export default function RotatingProfile() {
           className="absolute inset-0 rounded-full"
           style={{
             border: "2px solid transparent",
-            borderTopColor: "#8b4513",
+            borderTopColor: "#16f2b3",
             transform: "rotate(240deg)",
           }}
         />
