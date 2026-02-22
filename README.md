@@ -7,7 +7,7 @@
   [![React](https://img.shields.io/badge/React-19.0-blue)](https://reactjs.org/)
   [![TailwindCSS](https://img.shields.io/badge/Tailwind-latest-38bdf8)](https://tailwindcss.com/)
   
-  <img alt="Portfolio Preview" src="../Portfolio/public/image/portfolio-ss.png" width="800" />
+  <img alt="Portfolio Preview" src="public/image/portfolio-ss.png" width="800" />
 </div>
 
 ---
@@ -169,4 +169,5 @@ For questions or issues, feel free to open an issue in the repository.
   <br />
   <a href="https://rajatsharma-portfolio.vercel.app/">View Live Demo</a>
 </div>
+
 
