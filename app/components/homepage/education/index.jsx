@@ -66,7 +66,10 @@ function Education() {
                           <p className="text-base sm:text-xl mb-2 font-medium uppercase">
                             {education.title}
                           </p>
-                          <p className="text-sm sm:text-base">{education.institution}</p>
+                         <div className="flex items-center gap-3">
+                            <p className="text-sm sm:text-base">{education.institution}</p>
+                            <p className="text-sm sm:text-cyan-400">{education.percentage}</p>
+                          </div>
                         </div>
                       </div>
                     </div>
