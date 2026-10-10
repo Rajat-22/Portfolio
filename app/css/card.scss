@@ -94,3 +94,44 @@
   mask-clip: padding-box, border-box;
   mask-composite: intersect;
 }
+
+.timeline-node {
+  background: conic-gradient(from 0deg, #16f2b3, #f626af, #8228ec, #16f2b3);
+  background-size: 200% 200%;
+  box-shadow: 0 0 6px rgba(22, 242, 179, 0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.timeline-node::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 9999px;
+  background: conic-gradient(from 0deg, #16f2b3, #f626af, #8228ec, #16f2b3);
+  filter: blur(10px);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  animation: timeline-spin 3s linear infinite;
+  z-index: -1;
+}
+
+.group:hover .timeline-node {
+  transform: scale(1.15);
+  box-shadow: 0 0 14px rgba(130, 40, 236, 0.7);
+  animation: timeline-spin 3s linear infinite;
+}
+
+.group:hover .timeline-node::after {
+  opacity: 0.85;
+}
+
+@keyframes timeline-spin {
+  from {
+    background-position: 0% 50%;
+    transform: rotate(0deg);
+  }
+  to {
+    background-position: 200% 50%;
+    transform: rotate(360deg);
+  }
+}
