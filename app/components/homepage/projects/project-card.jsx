@@ -1,85 +1,91 @@
 // @flow strict
 
-import * as React from 'react';
-import Link from "next/link";
+import Image from 'next/image';
+import Link from 'next/link';
+import { FiArrowUpRight } from 'react-icons/fi';
+import screenPlaceholder from '/public/projects/portfolio-screenshot.png';
+import { getProjectIcon } from './project-icons';
 
-function ProjectCard({ project }) {
+function ProjectCard({ project, hideHeader = false }) {
+  const { name, description, tools, image, demo } = project;
+  const hasDemo = typeof demo === 'string' && demo.trim() !== '';
+  const Icon = getProjectIcon(name);
 
   return (
-    <div className="from-[#0d1224] border-[#1b2c68a0] relative rounded-lg border bg-gradient-to-r to-[#0a0d37] w-full">
-      <div className="flex flex-row">
-        <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-pink-500 to-violet-600"></div>
-        <div className="h-[1px] w-full bg-gradient-to-r from-violet-600 to-transparent"></div>
-      </div>
-      <div className="px-4 lg:px-8 py-3 lg:py-5 relative">
-        <div className="flex flex-row space-x-1 lg:space-x-2 absolute top-1/2 -translate-y-1/2">
-          <div className="h-2 w-2 lg:h-3 lg:w-3 rounded-full bg-red-400"></div>
-          <div className="h-2 w-2 lg:h-3 lg:w-3 rounded-full bg-orange-400"></div>
-          <div className="h-2 w-2 lg:h-3 lg:w-3 rounded-full bg-green-200"></div>
-        </div>
-        <p className="text-center ml-3 text-[#16f2b3] text-base lg:text-xl">
-          {project.name}
-        </p>
-      </div>
-      <div className="overflow-hidden border-t-[2px] border-indigo-900 px-4 lg:px-8 py-4 lg:py-8">
-        <code className="font-mono text-xs md:text-sm lg:text-base">
-          <div className="blink">
-            <span className="mr-2 text-pink-500">const</span>
-            <span className="mr-2 text-white">project</span>
-            <span className="mr-2 text-pink-500">=</span>
-            <span className="text-gray-400">{'{'}</span>
+    <article className="group relative flex flex-col lg:flex-row">
+      <div className="flex flex-1 flex-col">
+        <div className="flex items-start gap-3">
+          {!hideHeader && (
+            <span className="flex h-12 w-12 sm:h-14 sm:w-14 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[#8228ec]/30 to-[#2a2e5a]/50 text-[#c4a5ff]">
+              <Icon className="text-xl sm:text-2xl" />
+            </span>
+          )}
+
+          <div className="min-w-0 flex-1">
+            {!hideHeader && (
+              <h3 className="text-sm sm:text-base font-semibold text-white">
+                {name}
+              </h3>
+            )}
+
+            {Array.isArray(tools) && tools.length > 0 && (
+              <div className={`flex flex-wrap gap-2 ${hideHeader ? '' : 'mt-2.5'}`}>
+                {tools.map((tool) => (
+                  <span
+                    key={tool}
+                    className="rounded-full bg-[#171a33] px-2.5 py-0.5 text-[10px] sm:text-[11px] text-gray-300"
+                  >
+                    {tool}
+                  </span>
+                ))}
+              </div>
+            )}
+
+            <p className="mt-3 text-xs sm:text-sm leading-relaxed text-gray-400">
+              {description}
+            </p>
           </div>
-          <div>
-            <span className="ml-4 lg:ml-8 mr-2 text-white">name:</span>
-            <span className="text-gray-400">{`'`}</span>
-            <span className="text-amber-300">{project.name}</span>
-            <span className="text-gray-400">{`',`}</span>
+        </div>
+
+        {hasDemo && (
+          <Link
+            href={demo}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`Open ${name} live demo`}
+            className="mt-4 inline-flex w-fit items-center gap-1.5 text-xs sm:text-sm font-medium text-[#16f2b3] transition-colors duration-300 hover:text-[#8228ec]"
+          >
+            View Live Demo
+            <FiArrowUpRight className="text-base" />
+          </Link>
+        )}
+      </div>
+
+      <div className="flex shrink-0 items-center justify-center pt-4 lg:w-[42%] lg:pt-0">
+        <div className="w-full max-w-[280px]">
+          <div className="overflow-hidden rounded-lg bg-[#0b0c1b] p-1 shadow-[0_8px_24px_-10px_rgba(0,0,0,0.85)] sm:p-1.5">
+            <div className="flex justify-center pb-1">
+              <span className="h-0.5 w-0.5 rounded-full bg-[#2a2e5a]" />
+            </div>
+
+            <div className="overflow-hidden rounded bg-[#101123]">
+              <Image
+                src={image || screenPlaceholder || placeholder}
+                alt={`${name} screenshot`}
+                width={1440}
+                height={900}
+                className="h-24 w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.03] sm:h-28 lg:h-40"
+              />
+            </div>
           </div>
 
-          <div className="ml-4 lg:ml-8 mr-2">
-            <span className=" text-white">tech-stack:</span>
-            <span className="text-gray-400">{` ['`}</span>
-            {
-              project.tools.map((tag, i) => (
-                <React.Fragment key={i}>
-                  <span className="text-amber-300">{tag}</span>
-                  {
-                    project.tools?.length - 1 !== i &&
-                    <span className="text-gray-400">{`', '`}</span>
-                  }
-                </React.Fragment>
-              ))
-            }
-            <span className="text-gray-400">{"],"}</span>
+          {/* Laptop base with trackpad notch */}
+          <div className="relative mx-auto h-2 w-[106%] -translate-x-[2.83%] rounded-b-lg bg-gradient-to-b from-[#c9cdd8] to-[#7c8194] shadow-[0_4px_12px_-5px_rgba(0,0,0,0.9)]">
+            <span className="absolute left-1/2 top-0 h-0.5 w-12 -translate-x-1/2 rounded-b-full bg-[#9aa0b0]/70" />
           </div>
-          <div>
-            <span className="ml-4 lg:ml-8 mr-2 text-white">myRole:</span>
-            <span className="text-orange-400">{project.role}</span>
-            <span className="text-gray-400">,</span>
-          </div>
-          <div className="ml-4 lg:ml-8 mr-2">
-            <span className="text-white">description:</span>
-            <span className="text-cyan-400">{' ' + project.description}</span>
-            <span className="text-gray-400">,</span>
-          </div>
-          {project.demo && project.demo.trim() !== '' && (
-            <div className="ml-4 lg:ml-8 mr-2">
-              <span className="text-white">demo:</span>
-              <Link
-                href={project.demo}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-600 hover:underline ml-1"
-              >
-                View Live Demo
-              </Link>
-              <span className="text-gray-400">,</span>
-            </div>
-          )}
-          <div><span className="text-gray-400">{`};`}</span></div>
-        </code>
+        </div>
       </div>
-    </div>
+    </article>
   );
 };
 
