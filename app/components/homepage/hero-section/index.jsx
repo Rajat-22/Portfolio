@@ -1,180 +1,115 @@
-"use client"; // 👈 Required for client-side features like useEffect/useState
-
-import { personalData } from "@/utils/data/personal-data";
 import Image from "next/image";
 import Link from "next/link";
-import { BsGithub, BsLinkedin } from "react-icons/bs";
-import { MdDownload } from "react-icons/md";
-import { RiContactsFill } from "react-icons/ri";
-import coding from '../../../assets/lottie/coding.json';
-import AnimationLottie from "../../helper/animation-lottie";
-import React, { useEffect, useState } from 'react';
+import { personalData } from "@/utils/data/personal-data";
+import { Button, ArrowIcon, ExternalArrow } from "../../ui/button";
+import { AvailabilityDot } from "../../ui/section-heading";
 
-function HeroSection() {
-  const roles = personalData.roles;
-  const [index, setIndex] = useState(0);
+const STATS = [
+  { value: "4+", label: "Years shipping production software" },
+  { value: "Full-stack", label: "Frontend, APIs and graph data" },
+  { value: "Telecom", label: "Network analytics at enterprise scale" },
+];
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setIndex((prevIndex) => (prevIndex + 1) % roles.length);
-    }, 5000); // Switch every 5 seconds
-
-    return () => clearInterval(timer);
-  }, [roles.length]);
+export default function HeroSection() {
   return (
-    <section className="relative flex flex-col items-center justify-between py-4 lg:py-12">
-      <Image
-        src="/hero.svg"
-        alt="Hero"
-        width={1572}
-        height={795}
-        priority
-        className="absolute -top-[98px] -z-10"
+    <section className="shell relative overflow-hidden pt-10 sm:pt-14 lg:pt-20">
+      <div
+        aria-hidden="true"
+        className="blueprint-grid pointer-events-none absolute inset-x-0 top-0 -z-10 h-[520px] opacity-[0.55]"
       />
 
-      <div className="grid grid-cols-1 items-start lg:grid-cols-2 lg:gap-12 gap-y-8">
-        <div className="order-2 lg:order-1 flex flex-col items-start justify-center p-2 md:pb-10 lg:pt-10">
-          <h1 className="text-3xl font-bold leading-10 text-white md:font-extrabold lg:text-[2.6rem] lg:leading-[3.5rem]">
-            Hello, <br />
-            This is {' '}
-            <span className=" text-[#16f2b3]">{personalData.name}</span>.<br />
-            {`I'm a Professional `}<br />
-            <span className=" text-pink-500">{roles[index]}</span>
-            .
+      <div className="grid grid-cols-1 items-end gap-12 pb-14 lg:grid-cols-12 lg:gap-8 lg:pb-20">
+        <div className="lg:col-span-8">
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-3">
+            <span className="inline-flex items-center gap-2 rounded-full border border-line bg-elevated px-3 py-1.5 text-[0.6875rem] tracking-wide text-muted">
+              <AvailabilityDot />
+              Open to senior engineering roles
+            </span>
+            <span className="meta">
+              {personalData.location}
+            </span>
+          </div>
+
+          <p className="mt-8 text-base font-light text-muted sm:text-lg">
+            {personalData.designation} · {personalData.company}
+          </p>
+
+          <h1 className="mt-3 text-[2.5rem] font-medium leading-[1.03] tracking-[-0.045em] text-ink sm:text-6xl lg:text-[5rem] xl:text-[5.25rem]">
+            Building thoughtful
+            <br />
+            digital experiences
+            <br />
+            <span className="text-muted">through engineering.</span>
           </h1>
 
-          <div className="my-12 flex items-center gap-5">
-            <Link
-              href={personalData.github}
-              target='_blank'
-              className="transition-all text-[#00FFFF] hover:scale-125 duration-300"
+          <p className="mt-8 max-w-xl text-[0.9375rem] leading-relaxed text-muted sm:text-base">
+            I&apos;m {personalData.name} — a {personalData.designation.toLowerCase()}{" "}
+            focused on building scalable web applications, intuitive interfaces,
+            and impactful digital products.
+          </p>
+
+          <div className="mt-10 flex flex-wrap items-center gap-3">
+            <Button href="#projects" variant="primary">
+              View my work
+              <ArrowIcon />
+            </Button>
+            <Button
+              href={personalData.resume}
+              external
+              variant="outline"
+              aria-label="Download Rajat Sharma's resume"
             >
-              <BsGithub size={30} />
-            </Link>
+              Download resume
+              <ExternalArrow />
+            </Button>
             <Link
-              href={personalData.linkedIn}
-              target='_blank'
-              className="transition-all text-[#00FFFF] hover:scale-125 duration-300"
+              href="#contact"
+              className="link-underline ml-1 text-[0.8125rem] text-muted transition-colors duration-300 hover:text-ink sm:text-sm"
             >
-              <BsLinkedin size={30} />
+              Or just say hello
             </Link>
           </div>
-
-          <div className="flex items-center gap-3">
-            <Link href="#contact" className="bg-gradient-to-r to-pink-500 from-violet-600 p-[1px] rounded-full transition-all duration-300 hover:from-pink-500 hover:to-violet-600">
-              <button className="px-3 text-xs md:px-8 py-3 md:py-4 bg-[#0d1224] rounded-full border-none text-center md:text-sm font-medium uppercase tracking-wider text-[#ffff] no-underline transition-all duration-200 ease-out  md:font-semibold flex items-center gap-1 hover:gap-3">
-                <span>Contact me</span>
-                <RiContactsFill size={16} />
-              </button>
-            </Link>
-
-            <Link className="flex items-center gap-1 hover:gap-3 rounded-full bg-gradient-to-r from-pink-500 to-violet-600 px-3 md:px-8 py-3 md:py-4 text-center text-xs md:text-sm font-medium uppercase tracking-wider text-white no-underline transition-all duration-200 ease-out hover:text-white hover:no-underline md:font-semibold" role="button" target="_blank" href={personalData.resume}
-            >
-              <span>Get Resume</span>
-              <MdDownload size={16} />
-            </Link>
-          </div>
-
         </div>
-        <AnimationLottie animationPath={coding} className="hidden md:block" />
 
-        {/* <div className="order-1 lg:order-2 from-[#0d1224] border-[#1b2c68a0] relative rounded-lg border bg-gradient-to-r to-[#0a0d37]">
-          <div className="flex flex-row">
-            <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-pink-500 to-violet-600"></div>
-            <div className="h-[1px] w-full bg-gradient-to-r from-violet-600 to-transparent"></div>
-          </div>
-          <div className="px-4 lg:px-8 py-5">
-            <div className="flex flex-row space-x-2">
-              <div className="h-3 w-3 rounded-full bg-red-400"></div>
-              <div className="h-3 w-3 rounded-full bg-orange-400"></div>
-              <div className="h-3 w-3 rounded-full bg-green-200"></div>
+        <div className="lg:col-span-4">
+          <div className="relative mx-auto max-w-[280px] lg:ml-auto lg:mr-0">
+            <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[var(--radius-lg)] border border-line bg-elevated">
+              <Image
+                src={personalData.profile}
+                alt="Portrait of Rajat Sharma"
+                fill
+                priority
+                sizes="(max-width: 1024px) 280px, 320px"
+                className="object-cover object-center"
+              />
+              <div
+                aria-hidden="true"
+                className="absolute inset-0 bg-gradient-to-t from-bg/70 via-transparent to-transparent"
+              />
+            </div>
+            <div className="mt-3 flex items-center justify-between">
+              <span className="meta">{personalData.name}</span>
+              <span className="meta">
+                {personalData.location.split(",")[0]}
+              </span>
             </div>
           </div>
-          <div className="overflow-hidden border-t-[2px] border-indigo-900 px-4 lg:px-8 py-4 lg:py-8">
-            <code className="font-mono text-xs md:text-sm lg:text-base">
-              <div className="blink">
-                <span className="mr-2 text-pink-500">const</span>
-                <span className="mr-2 text-white">coder</span>
-                <span className="mr-2 text-pink-500">=</span>
-                <span className="text-gray-400">{'{'}</span>
-              </div>
-              <div>
-                <span className="ml-4 lg:ml-8 mr-2 text-white">name:</span>
-                <span className="text-gray-400">{`'`}</span>
-                <span className="text-amber-300">Rajat Sharma</span>
-                <span className="text-gray-400">{`',`}</span>
-              </div>
-              <div className="ml-4 lg:ml-8 mr-2">
-                <span className=" text-white">skills:</span>
-                <span className="text-gray-400">{`['`}</span>
-                <span className="text-amber-300">React</span>
-                <span className="text-gray-400">{"', '"}</span>
-                <span className="text-amber-300">NextJS</span>
-                <span className="text-gray-400">{"', '"}</span>
-                <span className="text-amber-300">Redux</span>
-                <span className="text-gray-400">{"', '"}</span>
-                <span className="text-amber-300">Express</span>
-                <span className="text-gray-400">{"', '"}</span>
-                <span className="text-amber-300">NestJS</span>
-                <span className="text-gray-400">{"', '"}</span>
-                <span className="text-amber-300">MySql</span>
-                <span className="text-gray-400">{"', '"}</span>
-                <span className="text-amber-300">MongoDB</span>
-                <span className="text-gray-400">{"', '"}</span>
-                <span className="text-amber-300">Docker</span>
-                <span className="text-gray-400">{"', '"}</span>
-                <span className="text-amber-300">AWS</span>
-                <span className="text-gray-400">{"'],"}</span>
-              </div>
-              <div>
-                <span className="ml-4 lg:ml-8 mr-2 text-white">hardWorker:</span>
-                <span className="text-orange-400">true</span>
-                <span className="text-gray-400">,</span>
-              </div>
-              <div>
-                <span className="ml-4 lg:ml-8 mr-2 text-white">quickLearner:</span>
-                <span className="text-orange-400">true</span>
-                <span className="text-gray-400">,</span>
-              </div>
-              <div>
-                <span className="ml-4 lg:ml-8 mr-2 text-white">problemSolver:</span>
-                <span className="text-orange-400">true</span>
-                <span className="text-gray-400">,</span>
-              </div>
-              <div>
-                <span className="ml-4 lg:ml-8 mr-2 text-green-400">hireable:</span>
-                <span className="text-orange-400">function</span>
-                <span className="text-gray-400">{'() {'}</span>
-              </div>
-              <div>
-                <span className="ml-8 lg:ml-16 mr-2 text-orange-400">return</span>
-                <span className="text-gray-400">{`(`}</span>
-              </div>
-              <div>
-                <span className="ml-12 lg:ml-24 text-cyan-400">this.</span>
-                <span className="mr-2 text-white">hardWorker</span>
-                <span className="text-amber-300">&amp;&amp;</span>
-              </div>
-              <div>
-                <span className="ml-12 lg:ml-24 text-cyan-400">this.</span>
-                <span className="mr-2 text-white">problemSolver</span>
-                <span className="text-amber-300">&amp;&amp;</span>
-              </div>
-              <div>
-                <span className="ml-12 lg:ml-24 text-cyan-400">this.</span>
-                <span className="mr-2 text-white">skills.length</span>
-                <span className="mr-2 text-amber-300">&gt;=</span>
-                <span className="text-orange-400">5</span>
-              </div>
-              <div><span className="ml-8 lg:ml-16 mr-2 text-gray-400">{`);`}</span></div>
-              <div><span className="ml-4 lg:ml-8 text-gray-400">{`};`}</span></div>
-              <div><span className="text-gray-400">{`};`}</span></div>
-            </code>
+        </div>
+      </div>
+
+      {/* Meta strip */}
+      <div className="grid grid-cols-1 gap-px overflow-hidden rounded-[var(--radius)] border border-line bg-line sm:grid-cols-3">
+        {STATS.map((stat) => (
+          <div key={stat.label} className="bg-bg px-5 py-6 sm:px-6">
+            <p className="text-xl font-medium tracking-tight text-ink sm:text-2xl">
+              {stat.value}
+            </p>
+            <p className="mt-1.5 text-[0.8125rem] leading-snug text-muted">
+              {stat.label}
+            </p>
           </div>
-        </div> */}
+        ))}
       </div>
     </section>
   );
-};
-
-export default HeroSection;
+}

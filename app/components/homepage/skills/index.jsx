@@ -1,71 +1,58 @@
-// @flow strict
+import { skillGroups } from "@/utils/data/skills";
+import { Section, SectionHeading } from "../../ui/section-heading";
 
-import { skillsData } from "@/utils/data/skills";
-import { skillsImage } from "@/utils/skill-image";
-import Image from "next/image";
-import Marquee from "react-fast-marquee";
-
-function Skills() {
+export default function Skills() {
   return (
-    <div id="skills" className="relative z-50 border-t my-12 lg:my-24 border-[#25213b]">
-      <div className="w-[100px] h-[100px] bg-violet-100 rounded-full absolute top-6 left-[42%] translate-x-1/2 filter blur-3xl  opacity-20"></div>
+    <Section id="skills" labelledBy="skills-heading" className="border-t border-line">
+      <SectionHeading
+        index="04"
+        id="skills-heading"
+        title="Technical toolkit"
+        eyebrow="Grouped by discipline"
+        description="The technologies I reach for in production — picked because each has a job it does well, not because it is fashionable."
+      />
 
-      <div className="flex justify-center -translate-y-[1px]">
-        <div className="w-3/4">
-          <div className="h-[1px] bg-gradient-to-r from-transparent via-violet-500 to-transparent  w-full" />
-        </div>
-      </div>
-
-      <div className="flex justify-center my-5 lg:py-8">
-        <div className="flex  items-center">
-          <span className="w-24 h-[2px] bg-[#1a1443]"></span>
-          <span className="bg-[#1a1443] w-fit text-white p-2 px-5 text-xl rounded-md">
-            Skills
-          </span>
-          <span className="w-24 h-[2px] bg-[#1a1443]"></span>
-        </div>
-      </div>
-
-      <div className="w-full my-12">
-        <Marquee
-          gradient={false}
-          speed={80}
-          pauseOnHover={true}
-          pauseOnClick={true}
-          delay={0}
-          play={true}
-          direction="left"
-        >
-          {skillsData.map((skill, id) => (
-            <div className="w-36 min-w-fit h-fit flex flex-col items-center justify-center transition-all duration-500 m-3 sm:m-5 rounded-lg group relative hover:scale-[1.15] cursor-pointer"
-              key={id}>
-              <div className="h-full w-full rounded-lg border border-[#1f223c] bg-[#11152c] shadow-none shadow-gray-50 group-hover:border-violet-500 transition-all duration-500">
-                <div className="flex -translate-y-[1px] justify-center">
-                  <div className="w-3/4">
-                    <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-violet-500 to-transparent" />
-                  </div>
-                </div>
-                <div className="flex flex-col items-center justify-center gap-3 p-6">
-                  <div className="h-8 sm:h-10">
-                    <Image
-                      src={skillsImage(skill)?.src}
-                      alt={skill}
-                      width={40}
-                      height={40}
-                      className="h-full w-auto rounded-lg"
-                    />
-                  </div>
-                  <p className="text-white text-sm sm:text-lg">
-                    {skill}
-                  </p>
-                </div>
-              </div>
+      <div className="mt-10 grid grid-cols-1 gap-px overflow-hidden rounded-[var(--radius)] border border-line bg-line lg:mt-14 lg:grid-cols-2">
+        {skillGroups.map((group, index) => (
+          <div
+            key={group.id}
+            className={`reveal flex flex-col gap-5 bg-bg p-6 sm:p-8 ${index === skillGroups.length - 1 && skillGroups.length % 2 === 1
+                ? "lg:col-span-2"
+                : ""
+              }`}
+            style={{ "--reveal-delay": `${index * 70}ms` }}
+          >
+            <div className="flex items-baseline justify-between gap-4">
+              <h3 className="text-[0.9375rem] font-medium tracking-tight text-ink sm:text-base">
+                {group.title}
+              </h3>
+              <span className="meta shrink-0">
+                {String(index + 1).padStart(2, "0")}
+              </span>
             </div>
-          ))}
-        </Marquee>
-      </div>
-    </div>
-  );
-};
 
-export default Skills;
+            <p className="text-[0.8125rem] leading-relaxed text-dim">
+              {group.caption}
+            </p>
+
+            <ul
+              className={`mt-auto flex flex-wrap gap-x-6 gap-y-3 ${index === skillGroups.length - 1 && skillGroups.length % 2 === 1
+                  ? "lg:gap-x-10"
+                  : ""
+                }`}
+            >
+              {group.skills.map((skill) => (
+                <li
+                  key={skill}
+                  className="text-[1.0625rem] font-light tracking-tight text-muted transition-colors duration-300 hover:text-ink sm:text-lg"
+                >
+                  {skill}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </Section>
+  );
+}

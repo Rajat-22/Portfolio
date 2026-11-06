@@ -1,33 +1,105 @@
-import { GoogleTagManager } from "@next/third-parties/google";
-import { Inter } from "next/font/google";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { siteMeta } from "@/utils/data/personal-data";
 import Footer from "./components/footer";
-import ScrollToTop from "./components/helper/scroll-to-top";
 import Navbar from "./components/navbar";
-import "./css/card.scss";
+import RevealObserver from "./components/helper/reveal-observer";
+import ScrollToTop from "./components/helper/scroll-to-top";
 import "./css/globals.scss";
-const inter = Inter({ subsets: ["latin"] });
+
+
 
 export const metadata = {
-  title: "Rajat Sharma",
-  description:
-    "This is the portfolio of Rajat Sharma.",
+  metadataBase: new URL(siteMeta.url),
+  title: {
+    default: siteMeta.title,
+    template: siteMeta.titleTemplate,
+  },
+  description: siteMeta.description,
+  keywords: siteMeta.keywords,
+  authors: [{ name: "Rajat Sharma", url: siteMeta.url }],
+  creator: "Rajat Sharma",
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    locale: siteMeta.locale,
+    url: siteMeta.url,
+    siteName: "Rajat Sharma",
+    title: siteMeta.title,
+    description: siteMeta.description,
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Rajat Sharma — Senior Software Engineer",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteMeta.title,
+    description: siteMeta.description,
+    images: ["/og-image.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large" },
+  },
+  icons: {
+    icon: [{ url: "/favicon.ico", sizes: "any" }],
+    shortcut: "/favicon.ico",
+  },
+};
+
+export const viewport = {
+  themeColor: "#0a0a0b",
+  colorScheme: "dark",
+  width: "device-width",
+  initialScale: 1,
+};
+
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Rajat Sharma",
+  jobTitle: "Senior Software Engineer",
+  worksFor: { "@type": "Organization", name: "Sopra Steria" },
+  url: siteMeta.url,
+  email: "mailto:rajatsharma221098@gmail.com",
+  sameAs: [
+    "https://github.com/Rajat-22",
+    "https://www.linkedin.com/in/rajatsharma22",
+  ],
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <ToastContainer />
-        <main className="min-h-screen relative mx-auto px-6 sm:px-12 lg:max-w-[70rem] xl:max-w-[76rem] 2xl:max-w-[92rem] text-white">
-          <Navbar />
-          {children}
-          <ScrollToTop />
-        </main>
+    <html lang="en" suppressHydrationWarning>
+      <body className="font-sans antialiased">
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-accent focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-black"
+        >
+          Skip to content
+        </a>
+        <ToastContainer
+          position="bottom-right"
+          theme="dark"
+          autoClose={4500}
+          hideProgressBar
+        />
+        <Navbar />
+        <main id="main">{children}</main>
         <Footer />
+        <ScrollToTop />
+        <RevealObserver />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+        />
       </body>
-      <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM} />
     </html>
   );
 }

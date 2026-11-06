@@ -1,173 +1,99 @@
 <div align="center">
-  <h1>🚀 Developer Portfolio</h1>
-  <p><strong>A modern, responsive portfolio built with Next.js 15</strong></p>
-  
-  [![Live Demo](https://img.shields.io/badge/demo-online-success.svg)](https://rajatsharma-portfolio.vercel.app/)
-  [![Next.js](https://img.shields.io/badge/Next.js-15.1-black)](https://nextjs.org/)
-  [![React](https://img.shields.io/badge/React-19.0-blue)](https://reactjs.org/)
-  [![TailwindCSS](https://img.shields.io/badge/Tailwind-latest-38bdf8)](https://tailwindcss.com/)
-  
-  <img alt="Portfolio Preview" src="public/image/portfolio-ss.png" width="800" />
+
+# Rajat Sharma — Portfolio
+
+**A premium, editorial portfolio for a Senior Software Engineer.**
+
+[Live site](https://rajatsharma-portfolio.vercel.app/) · Next.js 15 · React 19 · Tailwind CSS
+
 </div>
 
 ---
 
-## ✨ Features
+## What this is
 
-- 🎨 **Modern UI/UX** - Clean, professional design with smooth animations
-- 📱 **Fully Responsive** - Optimized for all devices and screen sizes
-- ⚡ **Fast Performance** - Built with Next.js 15 and optimized for speed
-- 🎭 **Interactive Animations** - Engaging Lottie animations and Framer Motion effects
-- 📧 **Contact Form** - Integrated email functionality with reCAPTCHA protection
-- 🌓 **Dynamic Sections** - Hero, About, Experience, Skills, Projects, Education, Contact
-- 🎯 **SEO Optimized** - Meta tags and Google Tag Manager integration
+A single-page portfolio covering professional background, selected work, technical
+skill areas, education and contact — designed to be read quickly by recruiters and
+engineers, and to hold up technically on close inspection.
 
-## 🛠️ Tech Stack
+## Design direction
 
-**Framework & Core:**
-- [Next.js 15.1](https://nextjs.org/) - React framework with App Router
-- [React 19](https://reactjs.org/) - UI library
-- [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
-- [SCSS](https://sass-lang.com/) - Enhanced styling capabilities
+Charcoal and graphite surfaces, one restrained accent (`#c9f24b`), a strong
+typographic hierarchy and generous whitespace. Motion is limited to a subtle
+scroll-reveal and quiet hover states, and all of it is disabled automatically
+under `prefers-reduced-motion`. No gradient text, no glassmorphism, no blobs.
 
-**Libraries & Tools:**
-- [Framer Motion](https://www.framer.com/motion/) - Animation library
-- [Lottie React](https://www.npmjs.com/package/lottie-react) - Lottie animations
-- [React Icons](https://react-icons.github.io/react-icons/) - Icon library
-- [React Toastify](https://fkhadra.github.io/react-toastify/) - Toast notifications
-- [React Fast Marquee](https://www.npmjs.com/package/react-fast-marquee) - Scrolling animations
-- [EmailJS](https://www.emailjs.com/) & [Nodemailer](https://nodemailer.com/) - Email services
-- [Google reCAPTCHA](https://www.google.com/recaptcha/about/) - Spam protection
+## Stack
 
-## 📋 Prerequisites
+- **Framework** — Next.js 15 (App Router), React 19
+- **Styling** — Tailwind CSS with CSS custom-property design tokens, SCSS entry point
+- **Content** — plain JS data modules under `utils/data/`
+- **Contact** — EmailJS (browser-side, with validation and inline errors)
+- **Icons** — inline SVG, no icon library dependency
 
-Before you begin, ensure you have the following installed:
-- [Node.js](https://nodejs.org/) (v18 or higher)
-- [Git](https://git-scm.com/)
-- npm, yarn, or pnpm package manager
+## Content model
 
-Verify your installations:
-```bash
-node --version
-git --version
-```
+Everything editable lives in `utils/data/`. No component hardcodes personal copy.
 
-## 🚀 Getting Started
+| File               | Controls                                                                       |
+| ------------------ | ------------------------------------------------------------------------------ |
+| `personal-data.js` | Name, role, links, resume URL, nav items, site metadata, **chatbot URL**       |
+| `projects-data.js` | Selected work — description, approach, highlights, stack, screenshot, demo URL |
+| `experience.js`    | Roles, dates, summary and tech stack                                           |
+| `skills.js`        | Skill areas and the technologies in each                                       |
+| `educations.js`    | Qualifications                                                                 |
 
-### 1. Fork & Clone the Repository
+### Enabling the AI assistant
 
-Click the **Fork** button at the top right of this page, then:
+The assistant section ships with a placeholder link. To activate it, set:
 
 ```bash
-git clone https://github.com/<YOUR_GITHUB_USERNAME>/portfolio.git
-cd portfolio
+NEXT_PUBLIC_CHATBOT_URL=https://your-deployed-assistant.example.com
 ```
 
-### 2. Install Dependencies
+…or edit `chatbotConfig.url` in `utils/data/personal-data.js`. While the URL is still
+the placeholder, the UI shows a "launches soon" badge; point it at the real
+deployment and the badge disappears on its own.
+
+## Running locally
 
 ```bash
 npm install
-# or
-yarn install
-# or
-pnpm install
+npm run dev     # http://localhost:3000
+npm run build   # production build
+npm run lint    # ESLint
 ```
 
-### 3. Run Development Server
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) to view your portfolio.
-
-## 🎨 Customization Guide
-
-### Update Personal Information
-
-Navigate to [`utils/data/personal-data.js`](utils/data/personal-data.js) and update:
-```javascript
-export const personalData = {
-  name: "YOUR NAME",
-  designation: "YOUR TITLE",
-  description: "YOUR BIO",
-  email: "your@email.com",
-  // ... other fields
-}
-```
-
-### Modify Content Sections
-
-All editable content is located in the [`utils/data/`](utils/data/) directory:
-
-| File | Description |
-|------|-------------|
-| `personal-data.js` | Personal info, contact details, social links |
-| `experience.js` | Work experience data |
-| `projects-data.js` | Project showcase items |
-| `skills.js` | Technical skills & technologies |
-| `educations.js` | Education background |
-
-## 📁 Project Structure
+## Structure
 
 ```
-portfolio/
-├── app/
-│   ├── api/              # API routes
-│   ├── components/       # React components
-│   │   ├── homepage/     # Page sections
-│   │   └── helper/       # Utility components
-│   ├── css/              # Global styles
-│   └── page.js           # Main page
-├── utils/
-│   └── data/             # Content data files
-├── public/               # Static assets
-├── docker-compose.yml    # Docker orchestration
-└── next.config.js        # Next.js configuration
+app/
+├── components/
+│   ├── homepage/       # One folder per section
+│   │   ├── hero-section/
+│   │   ├── about/
+│   │   ├── experience/
+│   │   ├── projects/
+│   │   ├── skills/
+│   │   ├── ai-assistant/
+│   │   ├── education/
+│   │   └── contact/
+│   ├── helper/         # Reveal observer, scroll-to-top
+│   ├── ui/             # Button, section heading primitives
+│   ├── navbar.jsx
+│   └── footer.jsx
+├── css/globals.scss    # Design tokens and base styles
+├── layout.js           # Fonts, metadata, Person schema
+└── page.js             # Section composition
+utils/data/             # All editable content
+scripts/generate-og.js  # Regenerates public/og-image.png
 ```
 
-## 🎯 Purpose of This Project
+## Notes
 
-This portfolio website helps:
-1. Recruiters quickly understand your skills
-2. Developers explore project structure and code style
-3. Create a strong personal brand online
-4. It is suitable for Frontend Developers, React Developers, and JavaScript Engineers.
-
-This portfolio is designed to:
-1. Showcase personal projects and skills
-2. Act as an online resume
-3. Give recruiters and developers a quick overview of work and capabilities
-
-## 🤝 Contributing
-
-Contributions are welcome! Feel free to:
-1. Fork the project
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## 📝 License
-
-This project is open source and available for personal and commercial use.
-
-## 💬 Support
-
-If you find this project helpful, please give it a ⭐ on GitHub!
-
-For questions or issues, feel free to open an issue in the repository.
-
----
-
-<div align="center">
-  Made with ❤️ using Next.js and React
-  <br />
-  <a href="https://rajatsharma-portfolio.vercel.app/">View Live Demo</a>
-</div>
-
-
+- Metadata includes Open Graph, Twitter cards, a generated 1200×630 social image and
+  JSON-LD `Person` schema.
+- Images are served through `next/image` with explicit breakpoints; the OG image can
+  be regenerated with `node scripts/generate-og.js`.
+- The contact form posts directly to EmailJS with client-side validation, accessible
+  labels and `aria-live` feedback.

@@ -1,104 +1,89 @@
-// @flow strict
-import { personalData } from '@/utils/data/personal-data';
-import Link from 'next/link';
-import { BiLogoLinkedin } from "react-icons/bi";
-import { CiLocationOn } from "react-icons/ci";
-import { FaFacebook, FaStackOverflow, FaWhatsapp } from 'react-icons/fa';
-import { FaInstagram, FaXTwitter } from "react-icons/fa6";
-import { IoLogoGithub, IoLogoWhatsapp, IoMdCall } from "react-icons/io";
-import { MdAlternateEmail } from "react-icons/md";
-import ContactForm from './contact-form';
+import Link from "next/link";
+import { personalData } from "@/utils/data/personal-data";
+import { ExternalArrow } from "../../ui/button";
+import { Section, SectionHeading, AvailabilityDot } from "../../ui/section-heading";
+import ContactForm from "./contact-form";
 
-function ContactSection() {
+const SOCIALS = [
+  { label: "GitHub", href: personalData.github },
+  { label: "LinkedIn", href: personalData.linkedIn },
+  { label: "X / Twitter", href: personalData.twitter },
+  { label: "WhatsApp", href: personalData.whatsAppUrl },
+];
+
+export default function ContactSection() {
   return (
-    <div id="contact" className="my-12 lg:my-16 relative mt-24 text-white">
-      <div className="hidden lg:flex flex-col items-center absolute top-24 -right-8">
-        <span className="bg-[#1a1443] w-fit text-white rotate-90 p-2 px-5 text-xl rounded-md">
-          CONTACT
-        </span>
-        <span className="h-36 w-[2px] bg-[#1a1443]"></span>
-      </div>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
-        <ContactForm />
-        <div className="lg:w-3/4 ">
-          <div className="flex flex-col gap-5 lg:gap-9">
-            <p className="text-sm md:text-xl flex items-center gap-3">
-              <MdAlternateEmail
-                className="bg-[#8b98a5] p-2 rounded-full hover:bg-[#ed5580] hover:scale-110 transition-all duration-300 text-gray-800 cursor-pointer"
-                size={36}
-              />
-              <span>{personalData.email}</span>
-            </p>
-            <p className="text-sm md:text-xl flex items-center gap-3">
-              <IoMdCall
-                className="bg-[#8b98a5] p-2 rounded-full hover:bg-[#1c9935] hover:scale-110 transition-all duration-300 text-gray-800 cursor-pointer"
-                size={36}
-              />
-              <span>
-                {personalData.phone}
-              </span>
-            </p>
-             <p className="text-sm md:text-xl flex items-center gap-3">
-              <IoLogoWhatsapp
-                className="bg-[#8b98a5] p-2 rounded-full hover:bg-[#1c9935] hover:scale-110 transition-all duration-300 text-gray-800 cursor-pointer"
-                size={36}
-              />
-              <span>
-                {personalData.whatsApp}
-              </span>
-            </p>
-            <p className="text-sm md:text-xl flex items-center gap-3">
-              <CiLocationOn
-                className="bg-[#8b98a5] p-2 rounded-full hover:bg-[#ab0f17] hover:scale-110 transition-all duration-300 text-gray-800 cursor-pointer"
-                size={36}
-              />
-              <span>
-                {personalData.address}
-              </span>
-            </p>
+    <Section id="contact" labelledBy="contact-heading" className="border-t border-line">
+      <SectionHeading index="07" id="contact-heading" title="Get in touch" eyebrow="Open to work" />
+
+      <div className="mt-10 grid grid-cols-1 gap-12 lg:mt-14 lg:grid-cols-12 lg:gap-16">
+        <div className="reveal lg:col-span-5">
+          <h3 className="text-2xl font-light leading-tight tracking-[-0.03em] text-ink sm:text-3xl">
+            Have a role, a project,
+            <br />
+            or a problem worth solving?
+          </h3>
+          <p className="mt-5 max-w-md text-[0.9375rem] leading-relaxed text-muted">
+            I&apos;m always open to conversations about senior engineering roles
+            and interesting product work. The fastest way to reach me is email —
+            the form works too.
+          </p>
+
+          <div className="mt-8 inline-flex items-center gap-2 rounded-full border border-line bg-elevated px-3 py-1.5 text-[0.6875rem] text-muted">
+            <AvailabilityDot />
+            Available for senior software engineering roles
           </div>
-          <div className="mt-8 lg:mt-16 flex items-center gap-5 lg:gap-10">
-            <Link target="_blank" href={personalData.github}>
-              <IoLogoGithub
-                className="transition-all text-[#00FFFF] hover:scale-125 duration-300"
-                size={36}
-              />
-            </Link>
-            <Link target="_blank" href={personalData.linkedIn}>
-              <BiLogoLinkedin
-                className="transition-all text-[#00FFFF] hover:scale-125 duration-300"
-                size={36}
-              />
-            </Link>
-            <Link target="_blank" href={personalData.twitter}>
-              <FaXTwitter
-                className="transition-all text-[#00FFFF] hover:scale-125 duration-300"
-                size={36}
-              />
-            </Link>
-            <Link target="_blank" href={personalData.whatsAppUrl}>
-              <FaWhatsapp
-                className="hover:scale-125 text-[#00FFFF] transition-all duration-300"
-                size={36}
-              />
-            </Link>
-            <Link target="_blank" href={personalData.facebook}>
-              <FaFacebook
-                className="transition-all text-[#00FFFF] hover:scale-125 duration-300"
-                size={36}
-              />
-            </Link>
-            <Link target="_blank" href={personalData.instagram}>
-              <FaInstagram
-                className="transition-all text-[#00FFFF] hover:scale-125 duration-300"
-                size={36}
-              />
-            </Link>
+
+          <div className="mt-10 space-y-px overflow-hidden rounded-[var(--radius)] border border-line bg-line">
+            <a
+              href={`mailto:${personalData.email}`}
+              className="group flex items-center justify-between gap-4 bg-bg px-5 py-4 transition-colors duration-300 hover:bg-elevated"
+            >
+              <span className="min-w-0">
+                <span className="meta block">Email</span>
+                <span className="mt-1 block truncate text-sm text-ink">
+                  {personalData.email}
+                </span>
+              </span>
+              <ExternalArrow className="shrink-0 text-muted group-hover:text-accent" />
+            </a>
+
+            <a
+              href={`tel:${personalData.phone.replace(/[^\d+]/g, "")}`}
+              className="group flex items-center justify-between gap-4 bg-bg px-5 py-4 transition-colors duration-300 hover:bg-elevated"
+            >
+              <span>
+                <span className="meta block">Phone</span>
+                <span className="mt-1 block text-sm text-ink">
+                  {personalData.phone}
+                </span>
+              </span>
+              <span className="meta shrink-0">{personalData.timezone}</span>
+            </a>
+          </div>
+
+          <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-3">
+            {SOCIALS.map((social) => (
+              <li key={social.label}>
+                <Link
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="link-underline text-[0.8125rem] text-muted transition-colors duration-300 hover:text-ink"
+                >
+                  {social.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="reveal lg:col-span-7" style={{ "--reveal-delay": "100ms" }}>
+          <div className="card-surface p-6 sm:p-8">
+            <ContactForm />
           </div>
         </div>
       </div>
-    </div>
+    </Section>
   );
-};
-
-export default ContactSection;
+}

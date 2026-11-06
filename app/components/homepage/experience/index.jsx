@@ -1,103 +1,79 @@
-// @flow strict
-
-import { experiences } from "@/utils/data/experience";
 import Image from "next/image";
-import { FiCalendar } from "react-icons/fi";
-import experience from '../../../assets/lottie/code.json';
-import AnimationLottie from "../../helper/animation-lottie";
+import { experiences } from "@/utils/data/experience";
+import { Section, SectionHeading } from "../../ui/section-heading";
 
-function Experience() {
+export default function Experience() {
   return (
-    <div id="experience" className="relative z-50 border-t my-12 lg:my-24 border-[#25213b]">
-      <Image
-        src="/section.svg"
-        alt="Hero"
-        width={1572}
-        height={795}
-        className="absolute top-0 -z-10"
+    <Section
+      id="experience"
+      labelledBy="experience-heading"
+      className="border-t border-line"
+    >
+      <SectionHeading
+        index="02"
+        id="experience-heading"
+        title="Where I've worked"
+        eyebrow="2021 — Present"
       />
 
-      <div className="flex justify-center my-5 lg:py-8">
-        <div className="flex  items-center">
-          <span className="w-24 h-[2px] bg-[#1a1443]"></span>
-          <span className="bg-[#1a1443] w-fit text-white p-2 px-5 text-xl rounded-md">
-            Experiences
-          </span>
-          <span className="w-24 h-[2px] bg-[#1a1443]"></span>
-        </div>
-      </div>
+      <div className="mt-10 lg:mt-14">
+        {experiences.map((experience) => (
+          <article
+            key={experience.id}
+            className="reveal grid grid-cols-1 gap-6 border-b border-line pb-10 lg:grid-cols-12 lg:gap-10"
+          >
+            <div className="lg:col-span-4">
+              <div className="flex items-center gap-3">
+                <span className="meta">{experience.duration}</span>
+                {experience.isCurrent && (
+                  <span className="rounded-full border border-accent/30 bg-accent/10 px-2 py-0.5 text-[0.625rem] font-medium uppercase tracking-[0.12em] text-accent">
+                    Current
+                  </span>
+                )}
+              </div>
 
-      <div className="py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
-          <div className="flex justify-center items-start">
-            <div className="w-full h-full">
-              <AnimationLottie animationPath={experience} />
-            </div>
-          </div>
-
-          <div className="mx-auto w-full max-w-2xl px-4 sm:px-6 lg:px-0">
-          <div className="relative flex flex-col gap-8">
-            <span
-              aria-hidden="true"
-              className="absolute left-[7px] top-4 bottom-4 w-[2px] bg-gradient-to-b from-[#16f2b3] via-[#8228ec] to-transparent opacity-70"
-            />
-
-            {experiences.map((experience, index) => {
-              return (
-                <div key={experience.id} className="group relative pl-8">
-                  <span
-                    aria-hidden="true"
-                    className="timeline-node absolute left-0 top-6 z-10 h-4 w-4 rounded-full ring-4 ring-[#0b0c1b]"
+              <div className="mt-5 flex items-center gap-3">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[10px] border border-line bg-white p-1.5">
+                  <Image
+                    src={experience.logo}
+                    alt={`${experience.company} logo`}
+                    width={48}
+                    height={48}
+                    className="h-full w-full object-contain"
                   />
-
-                  {index === 0 && experience.isCurrent && (
-                    <span className="absolute left-6 -top-1 z-10 rounded-full bg-[#16f2b3] px-3 py-1 text-[10px] sm:text-xs font-semibold uppercase tracking-wide text-[#0b0c1b]">
-                      Current
-                    </span>
-                  )}
-
-                  <div className="relative overflow-hidden rounded-xl border border-[#2a2e5a] bg-[#101123] p-5 sm:p-6 transition-all duration-300 group-hover:-translate-y-1 group-hover:border-[#8228ec]/70">
-                    <Image
-                      src="/blur-23.svg"
-                      alt=""
-                      width={1080}
-                      height={200}
-                      className="pointer-events-none absolute bottom-0 opacity-40"
-                    />
-                    <div className="relative flex items-center gap-5 sm:gap-6">
-                      <div className="flex h-16 w-16 sm:h-20 sm:w-20 shrink-0 items-center justify-center rounded-xl bg-white p-2 transition-all duration-300 group-hover:scale-105">
-                        <Image
-                          src={experience.logo}
-                          alt={experience.company}
-                          width={80}
-                          height={80}
-                          className="h-full w-full object-contain"
-                        />
-                      </div>
-
-                      <div className="flex-1">
-                        <p className="text-base sm:text-xl font-semibold uppercase text-white">
-                          {experience.title}
-                        </p>
-                        <p className="mt-1 text-sm sm:text-base text-gray-300">
-                          {experience.company}
-                        </p>
-                        <p className="mt-2 flex items-center gap-2 text-xs sm:text-sm text-[#16f2b3]">
-                          <FiCalendar className="shrink-0" />
-                          {experience.duration}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
                 </div>
-              );
-            })}
-          </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
+                <div>
+                  <h3 className="text-base font-medium leading-tight text-ink">
+                    {experience.title}
+                  </h3>
+                  <p className="mt-0.5 text-[0.8125rem] text-muted">
+                    {experience.company}
+                  </p>
+                </div>
+              </div>
+            </div>
 
-export default Experience;
+            <div className="lg:col-span-8">
+              <p className="max-w-2xl text-[0.9375rem] leading-relaxed text-muted sm:text-base">
+                {experience.summary}
+              </p>
+
+              {experience.stack?.length > 0 && (
+                <div className="mt-6">
+                  <p className="meta mb-3">Working with</p>
+                  <ul className="flex flex-wrap gap-2">
+                    {experience.stack.map((tech) => (
+                      <li key={tech} className="chip">
+                        {tech}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+          </article>
+        ))}
+      </div>
+    </Section>
+  );
+}
