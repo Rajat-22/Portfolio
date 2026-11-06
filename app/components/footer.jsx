@@ -11,32 +11,32 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-line">
+    <footer className="border-t border-line bg-paper">
       <div className="shell py-12 sm:py-16">
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-12">
           <div className="sm:col-span-6">
-            <Link href="/" className="inline-flex items-center gap-3">
-              <span className="flex h-8 w-8 items-center justify-center rounded-[7px] bg-accent text-[0.7rem] font-semibold text-black">
-                {personalData.initials}
-              </span>
-              <span className="text-[0.8125rem] font-medium uppercase tracking-[0.18em] text-ink">
-                {personalData.name}
+            <Link href="/" className="inline-block">
+              <span className="display-tight text-[1.25rem] text-ink">
+                Rajat Sharma
               </span>
             </Link>
-            <p className="mt-4 max-w-xs text-[0.8125rem] leading-relaxed text-dim">
+            <p className="mt-1 font-mono text-[0.625rem] uppercase tracking-[0.14em] text-ink-3">
+              {personalData.designation}
+            </p>
+            <p className="mt-4 max-w-xs text-[0.8125rem] leading-relaxed text-ink-2">
               Good software is a series of small, careful decisions. Thanks for
               taking the time to look through mine.
             </p>
           </div>
 
           <nav aria-label="Footer" className="sm:col-span-3">
-            <p className="meta mb-4">Sections</p>
+            <p className="label mb-4">Sections</p>
             <ul className="space-y-2.5">
               {navigation.map((item) => (
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="text-[0.8125rem] text-muted transition-colors duration-300 hover:text-ink"
+                    className="text-[0.8125rem] text-ink-2 transition-colors duration-300 hover:text-ink"
                   >
                     {item.label}
                   </Link>
@@ -46,18 +46,18 @@ export default function Footer() {
           </nav>
 
           <div className="sm:col-span-3">
-            <p className="meta mb-4">Elsewhere</p>
+            <p className="label mb-4">Elsewhere</p>
             <ul className="space-y-2.5">
-              {SOCIALS.map((social) => (
-                <li key={social.label}>
+              {SOCIALS.map((s) => (
+                <li key={s.label}>
                   <Link
-                    href={social.href}
-                    {...(social.href.startsWith("http")
+                    href={s.href}
+                    {...(s.href.startsWith("http")
                       ? { target: "_blank", rel: "noopener noreferrer" }
                       : {})}
-                    className="text-[0.8125rem] text-muted transition-colors duration-300 hover:text-ink"
+                    className="text-[0.8125rem] text-ink-2 transition-colors duration-300 hover:text-ink"
                   >
-                    {social.label}
+                    {s.label}
                   </Link>
                 </li>
               ))}
@@ -66,10 +66,10 @@ export default function Footer() {
         </div>
 
         <div className="mt-12 flex flex-col gap-3 border-t border-line pt-6 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-xs text-dim">
+          <p className="text-xs text-ink-3">
             © {year} {personalData.name}. All rights reserved.
           </p>
-          <p className="meta">
+          <p className="font-mono text-[0.625rem] uppercase tracking-[0.12em] text-ink-3">
             Designed &amp; built with Next.js
           </p>
         </div>

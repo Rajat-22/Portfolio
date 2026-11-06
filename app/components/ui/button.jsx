@@ -3,10 +3,12 @@ import { personalData } from "@/utils/data/personal-data";
 
 const VARIANTS = {
   primary:
-    "bg-accent text-black border-accent hover:bg-[#d8ff62] hover:border-[#d8ff62]",
+    "bg-blue text-white border-blue hover:bg-[#2450d4] hover:border-[#2450d4]",
+  dark: "bg-ink text-paper border-ink hover:bg-[#0f1a2c] hover:border-[#0f1a2c]",
   outline:
-    "border-line-strong text-ink hover:border-accent hover:text-accent bg-transparent",
-  ghost: "border-transparent text-muted hover:text-ink bg-transparent",
+    "bg-transparent text-ink border-line-2 hover:border-ink hover:bg-paper-3",
+  light:
+    "bg-paper text-ink border-paper hover:bg-white hover:border-white",
 };
 
 export function Button({
@@ -15,20 +17,12 @@ export function Button({
   variant = "primary",
   external = false,
   className = "",
-  icon = null,
   onClick,
   type,
   ...rest
 }) {
-  const classes = `group inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-full border px-5 py-2.5 text-[0.8125rem] font-medium leading-none tracking-tight transition-all duration-300 ease-editorial sm:px-6 sm:text-sm ${VARIANTS[variant] || VARIANTS.primary
+  const classes = `group inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-full border px-5 py-3 text-[0.8125rem] font-medium leading-none tracking-tight transition-all duration-300 ease-editorial sm:px-6 sm:text-sm ${VARIANTS[variant] || VARIANTS.primary
     } ${className}`;
-
-  const content = (
-    <>
-      <span className="inline-flex items-center">{children}</span>
-      {icon}
-    </>
-  );
 
   if (href) {
     if (external) {
@@ -40,20 +34,20 @@ export function Button({
           className={classes}
           {...rest}
         >
-          {content}
+          {children}
         </Link>
       );
     }
     return (
       <Link href={href} className={classes} onClick={onClick} {...rest}>
-        {content}
+        {children}
       </Link>
     );
   }
 
   return (
     <button type={type || "button"} className={classes} onClick={onClick} {...rest}>
-      {content}
+      {children}
     </button>
   );
 }
@@ -61,17 +55,17 @@ export function Button({
 export function ArrowIcon({ className = "" }) {
   return (
     <svg
-      width="14"
-      height="14"
-      viewBox="0 0 14 14"
+      width="15"
+      height="15"
+      viewBox="0 0 15 15"
       fill="none"
       aria-hidden="true"
-      className={`transition-transform duration-300 ease-editorial group-hover:translate-x-0.5 ${className}`}
+      className={`shrink-0 transition-transform duration-300 ease-editorial group-hover:translate-x-1 ${className}`}
     >
       <path
-        d="M2 7h9.5M7.5 3l4 4-4 4"
+        d="M2.5 7.5h10M8.5 3.5l4 4-4 4"
         stroke="currentColor"
-        strokeWidth="1.4"
+        strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
@@ -82,17 +76,17 @@ export function ArrowIcon({ className = "" }) {
 export function ExternalArrow({ className = "" }) {
   return (
     <svg
-      width="13"
-      height="13"
-      viewBox="0 0 13 13"
+      width="14"
+      height="14"
+      viewBox="0 0 14 14"
       fill="none"
       aria-hidden="true"
-      className={`transition-transform duration-300 ease-editorial group-hover:translate-x-0.5 group-hover:-translate-y-0.5 ${className}`}
+      className={`shrink-0 transition-transform duration-300 ease-editorial group-hover:translate-x-0.5 group-hover:-translate-y-0.5 ${className}`}
     >
       <path
-        d="M3.5 9.5l6-6M4.5 3.5h5v5"
+        d="M3.5 10.5l7-7M5 3.5h5.5V9"
         stroke="currentColor"
-        strokeWidth="1.4"
+        strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
@@ -100,32 +94,17 @@ export function ExternalArrow({ className = "" }) {
   );
 }
 
-export function ResumeButton({ className }) {
+export function ResumeButton({ className = "", variant = "dark" }) {
   return (
     <Button
       href={personalData.resume}
       external
-      variant="primary"
+      variant={variant}
       className={className}
       aria-label="View Rajat Sharma's profile on LinkedIn"
     >
       Resume
-      <svg
-        width="13"
-        height="13"
-        viewBox="0 0 13 13"
-        fill="none"
-        aria-hidden="true"
-        className="shrink-0 transition-transform duration-300 ease-editorial group-hover:translate-y-0.5"
-      >
-        <path
-          d="M6.5 1.5v7M3.5 6l3 3 3-3M2 11h9"
-          stroke="currentColor"
-          strokeWidth="1.4"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
+      <ExternalArrow />
     </Button>
   );
 }

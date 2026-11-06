@@ -1,95 +1,113 @@
+import Image from "next/image";
 import { personalData } from "@/utils/data/personal-data";
 import { Section, SectionHeading } from "../../ui/section-heading";
 
-const PARAGRAPHS = [
-  `I'm a senior software engineer with a bias toward the parts of a product people actually feel — how fast a screen loads, how clearly a dense dataset reads, how few clicks it takes to get something done.`,
-  `Most of my work lives in the React, Next.js and Vue ecosystem, paired with typed APIs and data stores that range from MongoDB to graph databases like Neo4j. I care about the seam between design and implementation: translating an interface into components that stay fast, accessible and maintainable as the product grows.`,
-  `Day to day that means building and improving enterprise web applications end to end — modelling the data, shaping the API, and shipping the interface that sits on top. I'm most useful on problems where performance, visualisation and product thinking all have to meet.`,
-];
-
 const PRINCIPLES = [
   {
-    title: "Engineering for the interface",
-    body: "Interfaces are engineered artefacts. Component structure, state boundaries and rendering cost are design decisions, not afterthoughts.",
+    title: "Start at the data",
+    body: "Most interface problems are data problems wearing a costume. I model the information before I touch the layout.",
+    dot: "bg-blue",
   },
   {
-    title: "Clarity over cleverness",
-    body: "Readable systems outlive clever ones. I optimise for the next person who has to change the code.",
+    title: "Measure, then optimise",
+    body: "Performance work begins with a number. If it isn't faster for a real user on a real device, it isn't finished.",
+    dot: "bg-coral",
   },
   {
-    title: "Measured, not assumed",
-    body: "Performance work starts with a measurement. If it is not faster for a real user on a real device, it is not done.",
+    title: "Build for the next engineer",
+    body: "Readable systems outlive clever ones. I optimise for the person who has to change this code in a year.",
+    dot: "bg-mint",
   },
 ];
 
 export default function AboutSection() {
   return (
-    <Section id="about" labelledBy="about-heading" className="border-t border-line">
-      <SectionHeading
-        index="01"
-        id="about-heading"
-        title="A little about how I work"
-      />
+    <Section id="about" labelledBy="about-heading">
+      <SectionHeading index="01" id="about-heading" title="About me" aside="The story" />
 
-      <div className="mt-10 grid grid-cols-1 gap-10 lg:mt-14 lg:grid-cols-12 lg:gap-16">
-        <div className="reveal lg:col-span-7">
-          <div className="space-y-5 text-[0.9375rem] leading-[1.75] text-muted sm:text-base">
-            {PARAGRAPHS.map((paragraph, i) => (
-              <p
-                key={i}
-                className={
-                  i === 0
-                    ? "text-lg font-light leading-relaxed text-ink sm:text-xl"
-                    : undefined
-                }
-              >
-                {paragraph}
-              </p>
-            ))}
+      <div className="mt-10 grid grid-cols-1 gap-12 lg:mt-14 lg:grid-cols-12 lg:gap-14">
+        {/* Portrait + colour block */}
+        <div className="reveal lg:col-span-4">
+          <div className="relative">
+            <div
+              aria-hidden="true"
+              className="absolute -left-4 -top-4 h-full w-full rounded-[10px] bg-lavender-soft ring-1 ring-lavender/25"
+            />
+            <div className="relative overflow-hidden rounded-[10px] border border-line-2">
+              <div className="relative aspect-[4/5] w-full">
+                <Image
+                  src={personalData.profile}
+                  alt="Rajat Sharma"
+                  fill
+                  sizes="(max-width: 1024px) 80vw, 340px"
+                  className="object-cover object-center"
+                />
+              </div>
+            </div>
           </div>
 
-          <dl className="mt-10 grid grid-cols-2 gap-x-6 gap-y-6 border-t border-line pt-8 sm:grid-cols-3">
-            <div>
-              <dt className="meta">Based in</dt>
-              <dd className="mt-1.5 text-sm text-ink">{personalData.location}</dd>
-            </div>
-            <div>
-              <dt className="meta">Currently</dt>
-              <dd className="mt-1.5 text-sm text-ink">
-                {personalData.designation}, {personalData.company}
-              </dd>
-            </div>
-            <div>
-              <dt className="meta">Focus</dt>
-              <dd className="mt-1.5 text-sm text-ink">
-                Full-stack product engineering
-              </dd>
-            </div>
+          <dl className="mt-6 space-y-3">
+            {[
+              ["Based in", personalData.location],
+              ["Focus", "Full-stack engineering"],
+              ["Specialty", "Data visualisation"],
+            ].map(([k, v]) => (
+              <div key={k} className="flex gap-3 border-b border-line pb-2.5">
+                <dt className="w-20 shrink-0 font-mono text-[0.625rem] uppercase tracking-[0.1em] text-ink-3">
+                  {k}
+                </dt>
+                <dd className="text-[0.8125rem] text-ink">{v}</dd>
+              </div>
+            ))}
           </dl>
         </div>
 
-        <div className="lg:col-span-5">
-          <ul className="space-y-px overflow-hidden rounded-[var(--radius)] border border-line bg-line">
-            {PRINCIPLES.map((principle, i) => (
-              <li
-                key={principle.title}
-                className="reveal bg-bg px-5 py-5 sm:px-6"
-                style={{ "--reveal-delay": `${120 + i * 90}ms` }}
+        {/* Story */}
+        <div className="reveal lg:col-span-8" style={{ "--reveal-delay": "80ms" }}>
+          <p className="display-tight text-[1.5rem] leading-[1.3] text-ink sm:text-[1.875rem] lg:text-[2.125rem]">
+            I started in the interface and kept digging down until I understood
+            everything underneath it.
+          </p>
+
+          <div className="mt-7 space-y-5 text-[0.9375rem] leading-[1.8] text-ink-2 sm:text-base">
+            <p>
+              Frontend work taught me how products feel. Full-stack work taught
+              me why they break. That curiosity took me from component
+              development into data modelling, APIs and graph databases —
+              because the interesting problems were always one layer deeper.
+            </p>
+            <p>
+              Today I build and improve enterprise web applications end to end
+              at {personalData.company}: the interface, the API behind it, and
+              the data model underneath. Most of my work sits where performance,
+              visualisation and product thinking all have to meet at once.
+            </p>
+            <p>
+              A network topology with thousands of nodes isn&apos;t a styling
+              problem — it&apos;s a question of what to render, when, and how to
+              let someone rearrange it without losing their place.
+            </p>
+          </div>
+
+          <div className="mt-9 grid grid-cols-1 gap-4 sm:grid-cols-3">
+            {PRINCIPLES.map((p, i) => (
+              <div
+                key={p.title}
+                className="reveal rounded-[8px] border border-line-2 bg-paper-3 p-4"
+                style={{ "--reveal-delay": `${140 + i * 70}ms` }}
               >
-                <div className="flex items-baseline gap-3">
-                  <span className="meta shrink-0">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <h3 className="text-[0.9375rem] font-medium text-ink">
-                    {principle.title}
+                <div className="flex items-center gap-2">
+                  <span className={`h-1.5 w-1.5 rounded-full ${p.dot}`} />
+                  <h3 className="text-[0.8125rem] font-semibold text-ink">
+                    {p.title}
                   </h3>
                 </div>
-                <p className="mt-2 pl-7 text-[0.8125rem] leading-relaxed text-muted">
-                  {principle.body}
+                <p className="mt-2 text-[0.75rem] leading-relaxed text-ink-2">
+                  {p.body}
                 </p>
-              </li>
+              </div>
             ))}
-          </ul>
+          </div>
         </div>
       </div>
     </Section>

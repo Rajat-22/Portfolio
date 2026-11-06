@@ -1,37 +1,57 @@
-import { personalData } from "@/utils/data/personal-data";
-
 /**
- * Editorial section header: index number, title, and optional aside.
+ * Editorial section header. Deliberately not a card — a typographic
+ * marker that anchors each section without repeating a container.
  */
 export function SectionHeading({
   index,
   title,
-  eyebrow,
-  description,
+  lead,
+  aside,
   id,
+  tone = "light",
   className = "",
 }) {
+  const isDark = tone === "dark";
+
   return (
     <header className={`reveal ${className}`}>
-      <div className="flex items-baseline justify-between gap-6 border-b border-line pb-5">
-        <div className="flex items-baseline gap-4 sm:gap-5">
+      <div
+        className={`flex flex-wrap items-baseline justify-between gap-x-8 gap-y-3 border-b pb-5 ${isDark ? "border-night-line" : "border-line"
+          }`}
+      >
+        <div className="flex items-baseline gap-4 sm:gap-6">
           {index && (
-            <span className="meta shrink-0 translate-y-[-0.15em]">{index}</span>
+            <span
+              className={`shrink-0 font-mono text-[0.6875rem] tracking-[0.14em] ${isDark ? "text-night-muted" : "text-ink-3"
+                }`}
+            >
+              {index}
+            </span>
           )}
           <h2
             id={id}
-            className="text-2xl font-medium tracking-[-0.03em] text-ink sm:text-3xl lg:text-[2.5rem]"
+            className={`display-tight text-[1.875rem] sm:text-[2.5rem] lg:text-[3rem] ${isDark ? "text-night-ink" : "text-ink"
+              }`}
           >
             {title}
           </h2>
         </div>
-        {eyebrow && (
-          <span className="meta hidden text-right sm:block">{eyebrow}</span>
+        {aside && (
+          <span
+            className={`font-mono text-[0.6875rem] uppercase tracking-[0.14em] ${isDark ? "text-night-muted" : "text-ink-3"
+              }`}
+          >
+            {aside}
+          </span>
         )}
       </div>
-      {description && (
-        <p className="mt-6 max-w-2xl text-[0.9375rem] leading-relaxed text-muted sm:text-base">
-          {description}
+
+      {lead && (
+        <p
+          className={`mt-6 max-w-2xl text-[0.9375rem] leading-relaxed sm:text-base ${isDark ? "text-night-muted" : "text-ink-2"
+            }`}
+        >
+          {lead}
         </p>
       )}
     </header>
@@ -43,29 +63,24 @@ export function Section({ id, children, className = "", labelledBy }) {
     <section
       id={id}
       aria-labelledby={labelledBy}
-      className={`shell scroll-mt-24 pb-16 pt-16 sm:pb-20 sm:pt-20 lg:pb-24 lg:pt-24 ${className}`}
+      className={`shell scroll-mt-24 py-16 sm:py-20 lg:py-28 ${className}`}
     >
       {children}
     </section>
   );
 }
 
-export function AvailabilityDot() {
+export function AvailabilityDot({ tone = "light" }) {
   return (
     <span className="relative flex h-1.5 w-1.5" aria-hidden="true">
-      <span className="absolute inline-flex h-full w-full animate-pulse-dot rounded-full bg-accent opacity-70" />
-      <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent" />
+      <span
+        className={`absolute inline-flex h-full w-full animate-pulse-dot rounded-full ${tone === "dark" ? "bg-orange" : "bg-blue"
+          } opacity-60`}
+      />
+      <span
+        className={`relative inline-flex h-1.5 w-1.5 rounded-full ${tone === "dark" ? "bg-orange" : "bg-blue"
+          }`}
+      />
     </span>
   );
 }
-
-export function CurrentCompanyLine() {
-  return (
-    <span className="inline-flex items-center gap-2 meta">
-      <span className="h-1 w-1 rounded-full bg-accent" aria-hidden="true" />
-      {personalData.company}
-    </span>
-  );
-}
-
-export default SectionHeading;

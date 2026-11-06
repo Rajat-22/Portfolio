@@ -28,10 +28,11 @@ export default function ScrollToTop() {
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
       aria-label="Back to top"
       tabIndex={visible ? 0 : -1}
-      className={`fixed bottom-5 right-4 z-40 flex h-9 w-9 items-center justify-center rounded-full border border-line-strong bg-[#16161a] text-muted shadow-lg shadow-black/60 transition-all duration-500 ease-editorial hover:border-accent hover:text-accent sm:bottom-8 sm:right-8 sm:h-10 sm:w-10 ${visible
+      className={`fixed bottom-5 right-4 z-40 flex h-9 w-9 items-center justify-center rounded-full border border-line-2 bg-paper-3 text-ink-2 shadow-[0_10px_24px_-14px_rgba(23,36,58,0.5)] transition-all duration-500 ease-editorial hover:border-ink hover:text-ink sm:bottom-8 sm:right-8 sm:h-10 sm:w-10 ${
+        visible
           ? "translate-y-0 opacity-100"
           : "pointer-events-none translate-y-3 opacity-0"
-        }`}
+      }`}
     >
       <svg
         width="14"

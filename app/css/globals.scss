@@ -2,37 +2,54 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ---------------------------------------------------------------
-   Design tokens
-   Charcoal / graphite base with a single restrained accent.
-   --------------------------------------------------------------- */
+/* ===============================================================
+   Design tokens — light-first editorial engineering identity
+   =============================================================== */
 :root {
-  --font-sans: "Inter Tight", "Inter", -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, "SF Mono",
-    Menlo, Consolas, monospace;
+  --font-display:
+    "Bricolage Grotesque", "Inter Tight", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+  --font-sans:
+    "Inter Tight", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 
-  --bg: #0a0a0b;
-  --bg-elevated: #101013;
-  --bg-subtle: #141418;
-  --line: #232329;
-  --line-strong: #2f2f37;
+  /* Surfaces */
+  --paper: #f5f3ee;
+  --paper-2: #e9edf3;
+  --paper-3: #fbfaf7;
+  --ink: #17243a;
+  --ink-2: #657085;
+  --ink-3: #8d97a8;
 
-  --text: #f2f2f3;
-  --text-muted: #a0a0ab;
-  --text-dim: #6c6c78;
+  /* Accents — one primary, two secondary, three occasional */
+  --blue: #315fe8;
+  --blue-soft: #e4eaff;
+  --orange: #f08b50;
+  --orange-soft: #fdeee4;
+  --coral: #f2685c;
+  --coral-soft: #fde8e5;
+  --lavender: #a78bfa;
+  --lavender-soft: #efe9fe;
+  --mint: #4ec9a0;
+  --mint-soft: #e2f7ef;
+  --yellow: #f5c451;
+  --yellow-soft: #fdf3d9;
 
-  --accent: #c9f24b;
-  --accent-dim: #9dbd33;
-  --accent-soft: rgba(201, 242, 75, 0.1);
+  /* Lines */
+  --line: #dcd8ce;
+  --line-2: #c9c4b7;
+  --line-cool: #d3dae4;
 
-  --radius-sm: 6px;
-  --radius: 12px;
-  --radius-lg: 20px;
+  /* Dark section */
+  --night: #17243a;
+  --night-2: #1f2f49;
+  --night-line: #2c3d59;
+  --night-ink: #f5f3ee;
+  --night-muted: #9aa8bd;
 
-  --shell: 1240px;
+  --shell: 1320px;
   --gutter: 1.25rem;
-
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -41,10 +58,9 @@
     --gutter: 2rem;
   }
 }
-
 @media (min-width: 1024px) {
   :root {
-    --gutter: 3rem;
+    --gutter: 3.5rem;
   }
 }
 
@@ -55,34 +71,34 @@
 
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 6rem;
+    scroll-padding-top: 5.5rem;
     -webkit-text-size-adjust: 100%;
   }
 
   body {
-    background-color: var(--bg);
-    color: var(--text);
-    font-feature-settings: "ss01", "cv11";
+    background-color: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
   }
 
   ::selection {
-    background: var(--accent);
-    color: #0a0a0b;
+    background: var(--blue);
+    color: #fff;
   }
 
   :focus-visible {
-    outline: 2px solid var(--accent);
+    outline: 2px solid var(--blue);
     outline-offset: 3px;
-    border-radius: 4px;
+    border-radius: 2px;
   }
 
   h1,
   h2,
-  h3,
-  h4 {
+  h3 {
+    font-family: var(--font-display);
     text-wrap: balance;
   }
 
@@ -90,26 +106,20 @@
     text-wrap: pretty;
   }
 
-  /* Slim, quiet scrollbar */
   ::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
+    width: 11px;
   }
   ::-webkit-scrollbar-track {
-    background: var(--bg);
+    background: var(--paper);
   }
   ::-webkit-scrollbar-thumb {
-    background: var(--line-strong);
+    background: var(--line-2);
     border-radius: 999px;
-    border: 3px solid var(--bg);
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: #3f3f49;
+    border: 3px solid var(--paper);
   }
 }
 
 @layer components {
-  /* Page shell: consistent max width + gutters everywhere */
   .shell {
     width: 100%;
     max-width: var(--shell);
@@ -117,84 +127,138 @@
     padding-inline: var(--gutter);
   }
 
-  .eyebrow {
-    font-size: 0.6875rem;
-    font-weight: 500;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--text-dim);
+  /* Display type — the identity of the site */
+  .display {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.045em;
+    line-height: 0.94;
   }
 
-  .hairline {
+  .display-tight {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.035em;
+    line-height: 1.02;
+  }
+
+  .label {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+
+  .label-ink {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+  }
+
+  .rule {
     height: 1px;
     width: 100%;
-    background: linear-gradient(
-      90deg,
-      var(--line) 0%,
-      var(--line) 60%,
-      transparent 100%
-    );
+    background: var(--line);
   }
 
-  /* Small monospace metadata labels */
-  .meta {
-    font-family: var(--font-mono), ui-monospace, monospace;
+  .rule-cool {
+    height: 1px;
+    width: 100%;
+    background: var(--line-cool);
+  }
+
+  /* Section index marker */
+  .index-mark {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--font-mono);
     font-size: 0.6875rem;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--text-dim);
+    color: var(--ink-3);
   }
 
-  .chip {
+  .index-mark::before {
+    content: "";
+    width: 1.75rem;
+    height: 1px;
+    background: var(--blue);
+  }
+
+  /* Paper grain — subtle, only on the hero */
+  .grain {
+    background-image:
+      radial-gradient(
+        circle at 15% 20%,
+        rgba(49, 95, 232, 0.06),
+        transparent 42%
+      ),
+      radial-gradient(
+        circle at 88% 8%,
+        rgba(240, 139, 80, 0.07),
+        transparent 38%
+      );
+  }
+
+  .dot-grid {
+    background-image: radial-gradient(var(--line-2) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+
+  .blueprint {
+    background-image:
+      linear-gradient(var(--line-cool) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line-cool) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+
+  /* Colour-block section backgrounds — used sparingly, one per section */
+  .tint-blue {
+    background: var(--blue-soft);
+  }
+  .tint-lavender {
+    background: var(--lavender-soft);
+  }
+  .tint-mint {
+    background: var(--mint-soft);
+  }
+  .tint-yellow {
+    background: var(--yellow-soft);
+  }
+  .tint-coral {
+    background: var(--coral-soft);
+  }
+
+  /* Small pill label with a colour dot */
+  .tag {
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
-    border: 1px solid var(--line);
     border-radius: 999px;
-    padding: 0.3rem 0.65rem;
-    font-size: 0.6875rem;
-    letter-spacing: 0.02em;
-    color: var(--text-muted);
-    background: var(--bg-elevated);
+    padding: 0.25rem 0.6rem;
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
     white-space: nowrap;
-  }
-
-  .card-surface {
-    background: var(--bg-elevated);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-  }
-
-  /* Faint engineering grid, used sparingly behind hero */
-  .blueprint-grid {
-    background-image:
-      linear-gradient(var(--line) 1px, transparent 1px),
-      linear-gradient(90deg, var(--line) 1px, transparent 1px);
-    background-size: 64px 64px;
-    mask-image: radial-gradient(
-      ellipse 70% 60% at 50% 0%,
-      #000 20%,
-      transparent 75%
-    );
   }
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-
-  /* Scroll-reveal — only active once JS marks the document ready */
   .reveal {
     opacity: 1;
   }
 
   .js-ready .reveal {
     opacity: 0;
-    transform: translateY(18px);
+    transform: translateY(20px);
     transition:
-      opacity 0.7s var(--ease),
-      transform 0.7s var(--ease);
+      opacity 0.75s var(--ease),
+      transform 0.75s var(--ease);
     transition-delay: var(--reveal-delay, 0ms);
   }
 
@@ -211,7 +275,7 @@
     content: "";
     position: absolute;
     left: 0;
-    bottom: -2px;
+    bottom: -3px;
     height: 1px;
     width: 100%;
     background: currentColor;
@@ -227,21 +291,17 @@
   }
 }
 
-/* Respect reduced motion everywhere */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
-
   *,
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
   }
-
   .js-ready .reveal {
     opacity: 1;
     transform: none;

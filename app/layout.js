@@ -1,13 +1,9 @@
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { siteMeta } from "@/utils/data/personal-data";
-import Footer from "./components/footer";
-import Navbar from "./components/navbar";
+import SiteChrome from "./components/site-chrome";
 import RevealObserver from "./components/helper/reveal-observer";
-import ScrollToTop from "./components/helper/scroll-to-top";
 import "./css/globals.scss";
-
-
 
 export const metadata = {
   metadataBase: new URL(siteMeta.url),
@@ -54,8 +50,8 @@ export const metadata = {
 };
 
 export const viewport = {
-  themeColor: "#0a0a0b",
-  colorScheme: "dark",
+  themeColor: "#f5f3ee",
+  colorScheme: "light",
   width: "device-width",
   initialScale: 1,
 };
@@ -80,20 +76,17 @@ export default function RootLayout({ children }) {
       <body className="font-sans antialiased">
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-accent focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-black"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-blue focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-white"
         >
           Skip to content
         </a>
         <ToastContainer
           position="bottom-right"
-          theme="dark"
+          theme="light"
           autoClose={4500}
           hideProgressBar
         />
-        <Navbar />
-        <main id="main">{children}</main>
-        <Footer />
-        <ScrollToTop />
+        <SiteChrome>{children}</SiteChrome>
         <RevealObserver />
         <script
           type="application/ld+json"

@@ -5,7 +5,7 @@ import emailjs from "@emailjs/browser";
 import { toast } from "react-toastify";
 import { isValidEmail } from "@/utils/check-email";
 
-// Public EmailJS identifiers — these are browser-side by design.
+// Public EmailJS identifiers — browser-side by design.
 const EMAILJS_SERVICE_ID = "service_cqkvl01";
 const EMAILJS_TEMPLATE_ID = "template_lfn5dfr";
 const EMAILJS_PUBLIC_KEY = "Q-anB_0Teb0AWe3TE";
@@ -13,7 +13,7 @@ const EMAILJS_PUBLIC_KEY = "Q-anB_0Teb0AWe3TE";
 const EMPTY = { name: "", email: "", message: "" };
 
 const fieldClasses =
-  "w-full rounded-[8px] border border-line bg-bg px-3.5 py-3 text-sm text-ink placeholder:text-dim transition-colors duration-300 focus:border-accent focus:outline-none";
+  "w-full rounded-[4px] border border-line-2 bg-white px-3.5 py-3 text-[0.875rem] text-ink placeholder:text-ink-3 transition-colors duration-300 focus:border-blue focus:outline-none";
 
 export default function ContactForm() {
   const [values, setValues] = useState(EMPTY);
@@ -25,7 +25,8 @@ export default function ContactForm() {
     const next = {};
     if (!values.name.trim()) next.name = "Please add your name.";
     if (!values.email.trim()) next.email = "Please add your email.";
-    else if (!isValidEmail(values.email)) next.email = "That email doesn't look right.";
+    else if (!isValidEmail(values.email))
+      next.email = "That email doesn't look right.";
     if (!values.message.trim()) next.message = "Please add a short message.";
     return next;
   };
@@ -67,12 +68,14 @@ export default function ContactForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} noValidate className="space-y-5">
-      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+    <form onSubmit={handleSubmit} noValidate>
+      <p className="label">Send a message</p>
+
+      <div className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2">
         <div>
           <label
             htmlFor="contact-name"
-            className="mb-2 block text-[0.8125rem] text-muted"
+            className="mb-2 block text-[0.8125rem] text-ink-2"
           >
             Name
           </label>
@@ -91,7 +94,7 @@ export default function ContactForm() {
             className={fieldClasses}
           />
           {errors.name && (
-            <p id="contact-name-error" className="mt-1.5 text-xs text-red-400">
+            <p id="contact-name-error" className="mt-1.5 text-xs text-red-600">
               {errors.name}
             </p>
           )}
@@ -100,7 +103,7 @@ export default function ContactForm() {
         <div>
           <label
             htmlFor="contact-email"
-            className="mb-2 block text-[0.8125rem] text-muted"
+            className="mb-2 block text-[0.8125rem] text-ink-2"
           >
             Email
           </label>
@@ -120,17 +123,17 @@ export default function ContactForm() {
             className={fieldClasses}
           />
           {errors.email && (
-            <p id="contact-email-error" className="mt-1.5 text-xs text-red-400">
+            <p id="contact-email-error" className="mt-1.5 text-xs text-red-600">
               {errors.email}
             </p>
           )}
         </div>
       </div>
 
-      <div>
+      <div className="mt-5">
         <label
           htmlFor="contact-message"
-          className="mb-2 block text-[0.8125rem] text-muted"
+          className="mb-2 block text-[0.8125rem] text-ink-2"
         >
           Message
         </label>
@@ -151,44 +154,46 @@ export default function ContactForm() {
         />
         <div className="mt-1.5 flex items-baseline justify-between gap-4">
           {errors.message ? (
-            <p id="contact-message-error" className="text-xs text-red-400">
+            <p id="contact-message-error" className="text-xs text-red-600">
               {errors.message}
             </p>
           ) : (
-            <p id="contact-message-hint" className="text-xs text-dim">
+            <p id="contact-message-hint" className="text-xs text-ink-3">
               Up to 500 characters.
             </p>
           )}
-          <span className="meta shrink-0">{values.message.length}/500</span>
+          <span className="font-mono text-[0.625rem] text-ink-3">
+            {values.message.length}/500
+          </span>
         </div>
       </div>
 
-      <div className="flex flex-wrap items-center gap-4 pt-1">
+      <div className="mt-6 flex flex-wrap items-center gap-4">
         <button
           type="submit"
           disabled={loading}
-          className="group inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-[0.8125rem] font-medium text-black transition-all duration-300 ease-editorial hover:bg-[#d8ff62] disabled:cursor-not-allowed disabled:opacity-60 sm:px-6 sm:text-sm"
+          className="group inline-flex items-center gap-2 rounded-full bg-blue px-5 py-3 text-[0.8125rem] font-medium text-white transition-all duration-300 ease-editorial hover:bg-[#2450d4] disabled:cursor-not-allowed disabled:opacity-60 sm:px-6 sm:text-sm"
         >
           {loading ? "Sending…" : "Send message"}
           <svg
-            width="14"
-            height="14"
-            viewBox="0 0 14 14"
+            width="15"
+            height="15"
+            viewBox="0 0 15 15"
             fill="none"
             aria-hidden="true"
-            className="transition-transform duration-300 ease-editorial group-hover:translate-x-0.5"
+            className="shrink-0 transition-transform duration-300 ease-editorial group-hover:translate-x-1"
           >
             <path
-              d="M2 7h9.5M7.5 3l4 4-4 4"
+              d="M2.5 7.5h10M8.5 3.5l4 4-4 4"
               stroke="currentColor"
-              strokeWidth="1.4"
+              strokeWidth="1.5"
               strokeLinecap="round"
               strokeLinejoin="round"
             />
           </svg>
         </button>
 
-        <p aria-live="polite" className="text-[0.8125rem] text-muted">
+        <p aria-live="polite" className="text-[0.8125rem] text-ink-2">
           {sent && !loading ? "Thanks — I'll get back to you soon." : ""}
         </p>
       </div>

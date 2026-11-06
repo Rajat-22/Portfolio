@@ -1,94 +1,132 @@
 import Image from "next/image";
 import { experiences } from "@/utils/data/experience";
+import { educations } from "@/utils/data/educations";
 import { Section, SectionHeading } from "../../ui/section-heading";
 
 export default function Experience() {
+  const role = experiences[0];
+  const degree = educations[0];
+
   return (
     <Section
       id="experience"
       labelledBy="experience-heading"
       className="border-t border-line"
     >
-      <SectionHeading index="02" id="experience-heading" title="Experience" />
+      <SectionHeading
+        index="02"
+        id="experience-heading"
+        title="My journey"
+        aside={role.duration}
+      />
 
-      <div className="mt-10 lg:mt-14">
-        {experiences.map((experience) => (
-          <article
-            key={experience.id}
-            className="reveal grid grid-cols-1 gap-8 border-b border-line pb-12 lg:grid-cols-12 lg:gap-12"
-          >
-            <div className="lg:col-span-4">
-              <div className="flex items-center gap-3">
-                <span className="meta">{experience.duration}</span>
-                {experience.isCurrent && (
-                  <span className="rounded-full border border-accent/30 bg-accent/10 px-2 py-0.5 text-[0.625rem] font-medium uppercase tracking-[0.12em] text-accent">
-                    Current
-                  </span>
-                )}
-              </div>
+      <div className="mt-10 grid grid-cols-1 gap-10 lg:mt-14 lg:grid-cols-12 lg:gap-14">
+        {/* Timeline */}
+        <div className="lg:col-span-5">
+          <ol className="relative">
+            {/* Rail */}
+            <span
+              aria-hidden="true"
+              className="absolute left-[7px] top-2 h-[calc(100%-1rem)] w-px bg-line-2"
+            />
 
-              <div className="mt-6 flex items-center gap-3.5">
-                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[9px] border border-line bg-white p-1.5">
+            <li className="relative pb-10 pl-8">
+              <span className="absolute left-0 top-1.5 flex h-[15px] w-[15px] items-center justify-center rounded-full border-2 border-blue bg-paper">
+                <span className="h-1.5 w-1.5 rounded-full bg-blue" />
+              </span>
+              <p className="font-mono text-[0.625rem] uppercase tracking-[0.12em] text-blue">
+                Jul 2021 — Present
+              </p>
+              <h3 className="mt-1.5 text-[1.0625rem] font-semibold text-ink">
+                {role.title}
+              </h3>
+              <div className="mt-1 flex items-center gap-2">
+                <div className="flex h-6 w-6 items-center justify-center rounded-[3px] border border-line bg-white p-0.5">
                   <Image
-                    src={experience.logo}
-                    alt={`${experience.company} logo`}
-                    width={44}
-                    height={44}
+                    src={role.logo}
+                    alt=""
+                    width={24}
+                    height={24}
                     className="h-full w-full object-contain"
                   />
                 </div>
-                <div>
-                  <h3 className="text-[1.0625rem] font-medium leading-tight text-ink">
-                    {experience.title}
-                  </h3>
-                  <p className="mt-1 text-[0.8125rem] text-muted">
-                    {experience.company}
-                  </p>
-                </div>
+                <p className="text-[0.875rem] text-ink-2">{role.company}</p>
               </div>
+              <span className="tag mt-2.5 bg-blue-soft text-blue">
+                <span className="h-1 w-1 rounded-full bg-blue" />
+                Current
+              </span>
 
-              {experience.stack?.length > 0 && (
-                <div className="mt-7">
-                  <p className="meta mb-3">Stack</p>
-                  <ul className="flex flex-wrap gap-x-3 gap-y-1.5">
-                    {experience.stack.map((tech) => (
-                      <li
-                        key={tech}
-                        className="whitespace-nowrap text-[0.8125rem] text-muted"
-                      >
-                        {tech}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
+              <div className="mt-5">
+                <p className="label">Stack</p>
+                <ul className="mt-2.5 flex flex-wrap gap-1.5">
+                  {role.stack.map((tech) => (
+                    <li
+                      key={tech}
+                      className="rounded-full border border-line-2 bg-paper-3 px-2.5 py-1 font-mono text-[0.625rem] text-ink-2"
+                    >
+                      {tech}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </li>
+
+            <li className="relative pl-8">
+              <span className="absolute left-0 top-1.5 flex h-[15px] w-[15px] items-center justify-center rounded-full border-2 border-line-2 bg-paper">
+                <span className="h-1.5 w-1.5 rounded-full bg-line-2" />
+              </span>
+              <p className="font-mono text-[0.625rem] uppercase tracking-[0.12em] text-ink-3">
+                {degree.duration}
+              </p>
+              <h3 className="mt-1.5 text-[1.0625rem] font-semibold text-ink">
+                {degree.title}
+              </h3>
+              <p className="mt-1 text-[0.875rem] text-ink-2">
+                {degree.institution}
+              </p>
+              <p className="mt-1 font-mono text-[0.625rem] text-ink-3">
+                {degree.percentage}
+              </p>
+            </li>
+          </ol>
+        </div>
+
+        {/* Detail card */}
+        <div className="lg:col-span-7">
+          <div className="reveal overflow-hidden rounded-[10px] border border-line-2 bg-paper-3">
+            <div className="border-b border-line bg-blue-soft px-6 py-4 sm:px-7">
+              <p className="font-mono text-[0.625rem] uppercase tracking-[0.12em] text-blue">
+                Senior Software Engineer · Sopra Steria
+              </p>
             </div>
 
-            <div className="lg:col-span-8">
-              <p className="max-w-2xl text-[0.9375rem] leading-[1.75] text-muted sm:text-base">
-                {experience.summary}
+            <div className="p-6 sm:p-7">
+              <p className="text-[0.9375rem] leading-relaxed text-ink sm:text-base">
+                {role.summary}
               </p>
 
-              {experience.focus?.length > 0 && (
-                <ul className="mt-7 grid grid-cols-1 gap-x-8 gap-y-3 sm:grid-cols-2">
-                  {experience.focus.map((item) => (
+              <div className="mt-7">
+                <p className="label">What I work on</p>
+                <ul className="mt-3.5 grid grid-cols-1 gap-x-6 gap-y-2.5 sm:grid-cols-2">
+                  {role.focus.map((item) => (
                     <li
                       key={item}
-                      className="flex gap-2.5 text-[0.875rem] leading-relaxed text-muted"
+                      className="flex gap-2.5 text-[0.8125rem] leading-relaxed text-ink-2"
                     >
                       <span
                         aria-hidden="true"
-                        className="mt-[0.5rem] h-1 w-1 shrink-0 rounded-full bg-accent"
+                        className="mt-[0.45rem] h-1 w-1 shrink-0 rounded-full bg-coral"
                       />
                       {item}
                     </li>
                   ))}
                 </ul>
-              )}
+              </div>
 
             </div>
-          </article>
-        ))}
+          </div>
+        </div>
       </div>
     </Section>
   );

@@ -67,6 +67,6 @@ export const navigation = [
   { label: "About", href: "#about" },
   { label: "Experience", href: "#experience" },
   { label: "Projects", href: "#projects" },
-  { label: "Skills", href: "#skills" },
+  { label: "Expertise", href: "#skills" },
   { label: "Contact", href: "#contact" },
 ];

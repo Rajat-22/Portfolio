@@ -4,166 +4,203 @@ import { featuredProject, secondaryProjects } from "@/utils/data/projects-data";
 import { ExternalArrow } from "../../ui/button";
 import { Section, SectionHeading } from "../../ui/section-heading";
 
-function TechList({ tools, className = "" }) {
+/** Each project gets its own tint so the section reads as a set, not a list. */
+const TINTS = {
+  "intelligent-network-analyzer": { bg: "bg-blue-soft", accent: "text-blue", dot: "bg-blue" },
+  "tick-tock-store": { bg: "bg-yellow-soft", accent: "text-[#a97a12]", dot: "bg-yellow" },
+  "tap-n-play": { bg: "bg-mint-soft", accent: "text-[#1f8a68]", dot: "bg-mint" },
+  "personal-portfolio": { bg: "bg-lavender-soft", accent: "text-[#6d4fd0]", dot: "bg-lavender" },
+};
+
+function TechRow({ tools }) {
   return (
-    <ul className={`flex flex-wrap gap-x-2 gap-y-2 ${className}`}>
-      {tools.map((tool) => (
-        <li key={tool} className="chip">
-          {tool}
+    <ul className="flex flex-wrap gap-1.5">
+      {tools.map((t) => (
+        <li
+          key={t}
+          className="rounded-full border border-line-2 bg-white/70 px-2.5 py-1 font-mono text-[0.625rem] text-ink-2"
+        >
+          {t}
         </li>
       ))}
     </ul>
   );
 }
 
-function ProjectLinks({ project }) {
-  const hasDemo = Boolean(project.demo);
-
+function DemoLink({ project }) {
+  if (!project.demo) {
+    return (
+      <span className="font-mono text-[0.625rem] uppercase tracking-[0.1em] text-ink-3">
+        Internal enterprise project
+      </span>
+    );
+  }
   return (
-    <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
-      {hasDemo ? (
-        <Link
-          href={project.demo}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="group inline-flex items-center gap-1.5 text-[0.8125rem] font-medium text-ink transition-colors duration-300 hover:text-accent sm:text-sm"
-        >
-          Live demo
-          <ExternalArrow />
-          <span className="sr-only">for {project.name} (opens in a new tab)</span>
-        </Link>
-      ) : (
-        <span className="inline-flex items-center gap-1.5 text-[0.8125rem] text-dim sm:text-sm">
-          Internal enterprise project
-        </span>
-      )}
-      <span className="meta">{project.role}</span>
-    </div>
-  );
-}
-
-function BrowserFrame({ project, priority = false, tall = false }) {
-  return (
-    <div className="overflow-hidden rounded-[var(--radius)] border border-line bg-elevated">
-      <div className="flex items-center gap-2 border-b border-line px-3 py-2.5">
-        <span className="flex gap-1.5" aria-hidden="true">
-          <span className="h-2 w-2 rounded-full bg-[#3a3a43]" />
-          <span className="h-2 w-2 rounded-full bg-[#3a3a43]" />
-          <span className="h-2 w-2 rounded-full bg-[#3a3a43]" />
-        </span>
-        <span className="ml-2 truncate rounded-[4px] bg-bg px-2 py-0.5 text-[0.625rem] tracking-wide text-dim">
-          {project.slug}
-        </span>
-      </div>
-      <div
-        className={`relative w-full overflow-hidden bg-bg ${tall ? "aspect-[16/10]" : "aspect-[16/11]"
-          }`}
-      >
-        <Image
-          src={project.image}
-          alt={`${project.name} — product screenshot`}
-          fill
-          priority={priority}
-          sizes="(max-width: 640px) calc(100vw - 2.5rem), (max-width: 1024px) calc(100vw - 4rem), 560px"
-          className="object-cover object-top transition-transform duration-700 ease-editorial group-hover:scale-[1.02]"
-        />
-      </div>
-    </div>
+    <Link
+      href={project.demo}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group inline-flex items-center gap-1.5 text-[0.8125rem] font-medium text-blue transition-colors hover:text-ink"
+    >
+      Live demo
+      <ExternalArrow />
+      <span className="sr-only">for {project.name} (opens in a new tab)</span>
+    </Link>
   );
 }
 
 export default function Projects() {
+  const tint = TINTS[featuredProject.slug] || TINTS["intelligent-network-analyzer"];
+
   return (
     <Section id="projects" labelledBy="projects-heading" className="border-t border-line">
       <SectionHeading
         index="03"
         id="projects-heading"
         title="Selected work"
-        description="A mix of enterprise platform work and self-directed product builds — the problems each one solves, and what I actually did."
+        aside="04 projects"
+        lead="Enterprise platform work and self-directed product builds — the problem each one solves, and what I actually did."
       />
 
-      {/* Flagship project */}
-      {featuredProject && (
-        <article className="reveal group mt-10 grid grid-cols-1 gap-8 border-b border-line pb-14 lg:mt-14 lg:grid-cols-12 lg:gap-12">
-          <div className="lg:col-span-7">
-            <BrowserFrame project={featuredProject} priority tall />
-          </div>
-
-          <div className="flex flex-col lg:col-span-5">
-            <div className="flex items-center gap-3">
-              <span className="inline-flex items-center rounded-full bg-accent px-2.5 py-[0.3rem] text-[0.625rem] font-semibold uppercase leading-none tracking-[0.12em] text-black">
+      {/* FLAGSHIP */}
+      <article className="reveal mt-10 overflow-hidden rounded-[12px] border border-line-2 lg:mt-14">
+        <div className={`grid grid-cols-1 lg:grid-cols-12 ${tint.bg}`}>
+          <div className="p-7 sm:p-9 lg:col-span-5 lg:p-10">
+            <div className="flex items-center gap-2.5">
+              <span className="tag bg-white/80 text-ink-2">
+                <span className={`h-1 w-1 rounded-full ${tint.dot}`} />
                 Featured
               </span>
-              <span className="meta leading-none">
+              <span className="font-mono text-[0.625rem] uppercase tracking-[0.12em] text-ink-3">
                 {featuredProject.category}
               </span>
             </div>
 
-            <h3 className="mt-5 text-2xl font-medium tracking-[-0.03em] text-ink sm:text-3xl lg:text-[2rem]">
+            <h3 className="display-tight mt-4 text-[1.75rem] text-ink sm:text-[2.125rem]">
               {featuredProject.name}
             </h3>
-            <p className="mt-2 text-[0.9375rem] text-muted">
+            <p className="mt-2 text-[0.9375rem] text-ink-2">
               {featuredProject.tagline}
             </p>
 
-            <p className="mt-6 text-[0.9375rem] leading-relaxed text-muted">
+            <p className="mt-5 text-[0.875rem] leading-relaxed text-ink-2">
               {featuredProject.description}
             </p>
-            <p className="mt-4 text-[0.9375rem] leading-relaxed text-muted">
+            <p className="mt-3 text-[0.875rem] leading-relaxed text-ink-2">
               {featuredProject.approach}
             </p>
 
-            <ul className="mt-6 space-y-2">
-              {featuredProject.highlights.map((highlight) => (
+            <ul className="mt-5 space-y-2">
+              {featuredProject.highlights.map((h) => (
                 <li
-                  key={highlight}
-                  className="flex gap-2.5 text-[0.8125rem] leading-relaxed text-muted"
+                  key={h}
+                  className="flex gap-2.5 text-[0.8125rem] leading-relaxed text-ink-2"
                 >
                   <span
                     aria-hidden="true"
-                    className="mt-[0.55rem] h-1 w-1 shrink-0 rounded-full bg-accent"
+                    className={`mt-[0.45rem] h-1 w-1 shrink-0 rounded-full ${tint.dot}`}
                   />
-                  {highlight}
+                  {h}
                 </li>
               ))}
             </ul>
 
-            <TechList tools={featuredProject.tools} className="mt-6" />
-            <div className="mt-auto pt-7">
-              <ProjectLinks project={featuredProject} />
+            <div className="mt-6 border-t border-ink/10 pt-4">
+              <p className="font-mono text-[0.5625rem] uppercase tracking-[0.12em] text-ink-3">
+                My contribution
+              </p>
+              <p className="mt-1 text-[0.8125rem] text-ink">
+                {featuredProject.role}
+              </p>
+            </div>
+
+            <div className="mt-4">
+              <TechRow tools={featuredProject.tools} />
+            </div>
+            <div className="mt-5">
+              <DemoLink project={featuredProject} />
             </div>
           </div>
-        </article>
-      )}
 
-      {/* Secondary grid */}
-      <div className="grid grid-cols-1 gap-x-8 gap-y-14 pt-14 sm:grid-cols-2 lg:pt-16">
-        {secondaryProjects.map((project, index) => (
-          <article
-            key={project.id}
-            className="reveal group flex flex-col"
-            style={{ "--reveal-delay": `${index * 80}ms` }}
-          >
-            <BrowserFrame project={project} />
-
-            <div className="mt-6 flex items-baseline justify-between gap-4">
-              <h3 className="text-lg font-medium tracking-[-0.02em] text-ink sm:text-xl">
-                {project.name}
-              </h3>
-              <span className="meta shrink-0">{project.year}</span>
+          <div className="lg:col-span-7">
+            <div className="relative aspect-[16/11] w-full lg:aspect-auto lg:h-full lg:min-h-[460px]">
+              <Image
+                src={featuredProject.image}
+                alt={`${featuredProject.name} — network topology interface`}
+                fill
+                priority
+                sizes="(max-width: 1024px) 100vw, 58vw"
+                className="object-cover object-top"
+              />
             </div>
+          </div>
+        </div>
+      </article>
 
-            <p className="mt-2 text-[0.875rem] leading-relaxed text-muted">
-              {project.description}
-            </p>
+      {/* SECONDARY — alternating, each with its own tint */}
+      <div className="mt-10 space-y-8 lg:mt-12 lg:space-y-10">
+        {secondaryProjects.map((project, index) => {
+          const t = TINTS[project.slug] || TINTS["tick-tock-store"];
+          const reversed = index % 2 === 1;
 
-            <TechList tools={project.tools} className="mt-5" />
+          return (
+            <article
+              key={project.id}
+              className="reveal overflow-hidden rounded-[12px] border border-line-2"
+              style={{ "--reveal-delay": `${index * 60}ms` }}
+            >
+              <div
+                className={`grid grid-cols-1 items-stretch lg:grid-cols-12 ${t.bg}`}
+              >
+                <div
+                  className={`lg:col-span-6 ${reversed ? "lg:order-2" : "lg:order-1"}`}
+                >
+                  <div className="relative aspect-[16/10] w-full lg:h-full lg:min-h-[300px]">
+                    <Image
+                      src={project.image}
+                      alt={`${project.name} — product interface`}
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 50vw"
+                      className="object-cover object-top"
+                    />
+                  </div>
+                </div>
 
-            <div className="mt-5 border-t border-line pt-5">
-              <ProjectLinks project={project} />
-            </div>
-          </article>
-        ))}
+                <div
+                  className={`flex flex-col p-6 sm:p-8 lg:col-span-6 ${reversed ? "lg:order-1" : "lg:order-2"
+                    }`}
+                >
+                  <div className="flex items-baseline justify-between gap-4">
+                    <span className="font-mono text-[0.625rem] uppercase tracking-[0.12em] text-ink-3">
+                      {String(index + 2).padStart(2, "0")} / {project.year}
+                    </span>
+                    <span className="font-mono text-[0.625rem] uppercase tracking-[0.12em] text-ink-3">
+                      {project.role}
+                    </span>
+                  </div>
+
+                  <h3 className="display-tight mt-2.5 text-[1.5rem] text-ink sm:text-[1.75rem]">
+                    {project.name}
+                  </h3>
+                  <p className="mt-1.5 text-[0.875rem] text-ink-2">
+                    {project.tagline}
+                  </p>
+
+                  <p className="mt-3.5 text-[0.875rem] leading-relaxed text-ink-2">
+                    {project.description}
+                  </p>
+
+                  <div className="mt-auto pt-5">
+                    <TechRow tools={project.tools} />
+                    <div className="mt-4 border-t border-ink/10 pt-3.5">
+                      <DemoLink project={project} />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+          );
+        })}
       </div>
     </Section>
   );
