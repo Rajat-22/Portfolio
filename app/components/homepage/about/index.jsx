@@ -29,7 +29,6 @@ export default function AboutSection() {
         index="01"
         id="about-heading"
         title="A little about how I work"
-        eyebrow={personalData.location}
       />
 
       <div className="mt-10 grid grid-cols-1 gap-10 lg:mt-14 lg:grid-cols-12 lg:gap-16">

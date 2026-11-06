@@ -1,66 +1,11 @@
 import { chatbotConfig } from "@/utils/data/personal-data";
 import { Section, SectionHeading } from "../../ui/section-heading";
 
-/** A quiet conversation preview — no live chat, purely illustrative. */
-function ConversationPreview() {
-  const lines = [
-    { from: "you", text: "What has Rajat built with Neo4j?" },
-    {
-      from: "assistant",
-      text: "A network analyzer that models telecom topology as a graph and renders it as an interactive canvas.",
-    },
-    { from: "you", text: "Which projects can I try live?" },
-  ];
-
-  return (
-    <div
-      aria-hidden="true"
-      className="card-surface overflow-hidden bg-elevated p-4 sm:p-5"
-    >
-      <div className="flex items-center justify-between border-b border-line pb-3.5">
-        <div className="flex items-center gap-2">
-          <span className="flex h-6 w-6 items-center justify-center rounded-[5px] bg-accent text-[0.5625rem] font-semibold text-black">
-            RS
-          </span>
-          <span className="text-[0.75rem] text-muted">Portfolio assistant</span>
-        </div>
-        <span className="meta">
-          {chatbotConfig.isPlaceholder ? "Preview" : "Live"}
-        </span>
-      </div>
-
-      <div className="mt-4 space-y-2.5">
-        {lines.map((line, i) => (
-          <div
-            key={i}
-            className={`flex ${line.from === "you" ? "justify-end" : "justify-start"}`}
-          >
-            <p
-              className={`max-w-[85%] rounded-[12px] px-3.5 py-2.5 text-[0.8125rem] leading-relaxed ${line.from === "you"
-                  ? "bg-subtle text-muted"
-                  : "border border-line bg-bg text-ink"
-                }`}
-            >
-              {line.text}
-            </p>
-          </div>
-        ))}
-
-        <div className="flex items-center gap-1 pl-1 pt-1">
-          <span className="h-1.5 w-1.5 animate-pulse-dot rounded-full bg-dim" />
-          <span
-            className="h-1.5 w-1.5 animate-pulse-dot rounded-full bg-dim"
-            style={{ animationDelay: "0.3s" }}
-          />
-          <span
-            className="h-1.5 w-1.5 animate-pulse-dot rounded-full bg-dim"
-            style={{ animationDelay: "0.6s" }}
-          />
-        </div>
-      </div>
-    </div>
-  );
-}
+const CAPABILITIES = [
+  "Answers questions about my experience and stack",
+  "Points to the projects most relevant to a role",
+  "Grounded in this site's content, not the open web",
+];
 
 export default function AiAssistant() {
   return (
@@ -73,16 +18,30 @@ export default function AiAssistant() {
         index="05"
         id="assistant-heading"
         title={chatbotConfig.title}
-        eyebrow={chatbotConfig.eyebrow}
       />
 
-      <div className="mt-10 grid grid-cols-1 items-center gap-10 lg:mt-14 lg:grid-cols-12 lg:gap-16">
-        <div className="reveal lg:col-span-6">
-          <p className="text-lg font-light leading-relaxed text-ink sm:text-xl lg:text-2xl lg:leading-[1.45]">
+      <div className="mt-10 grid grid-cols-1 gap-10 lg:mt-14 lg:grid-cols-12 lg:gap-16">
+        <div className="reveal lg:col-span-7">
+          <p className="max-w-xl text-lg font-light leading-relaxed text-ink sm:text-xl lg:text-[1.375rem] lg:leading-[1.5]">
             {chatbotConfig.description}
           </p>
 
-          <div className="mt-8 flex flex-wrap items-center gap-3">
+          <ul className="mt-8 space-y-3">
+            {CAPABILITIES.map((item) => (
+              <li
+                key={item}
+                className="flex gap-3 text-[0.875rem] leading-relaxed text-muted"
+              >
+                <span
+                  aria-hidden="true"
+                  className="mt-[0.5rem] h-1 w-1 shrink-0 rounded-full bg-accent"
+                />
+                {item}
+              </li>
+            ))}
+          </ul>
+
+          <div className="mt-9 flex flex-wrap items-center gap-4">
             <a
               href={chatbotConfig.url}
               target="_blank"
@@ -96,7 +55,7 @@ export default function AiAssistant() {
                 viewBox="0 0 13 13"
                 fill="none"
                 aria-hidden="true"
-                className="transition-transform duration-300 ease-editorial group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                className="shrink-0 transition-transform duration-300 ease-editorial group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
               >
                 <path
                   d="M3.5 9.5l6-6M4.5 3.5h5v5"
@@ -110,24 +69,55 @@ export default function AiAssistant() {
             </a>
 
             {chatbotConfig.isPlaceholder && (
-              <span className="chip border-dashed">
-                <span
-                  aria-hidden="true"
-                  className="h-1.5 w-1.5 rounded-full bg-dim"
-                />
-                Launches soon — link is a placeholder
+              <span className="text-[0.75rem] text-dim">
+                Not deployed yet — this link is a placeholder.
               </span>
             )}
           </div>
-
-          <p className="mt-6 max-w-md text-[0.8125rem] leading-relaxed text-dim">
-            The assistant answers questions about my experience, projects and
-            technical background using this site&apos;s content as its source.
-          </p>
         </div>
 
-        <div className="reveal lg:col-span-6" style={{ "--reveal-delay": "120ms" }}>
-          <ConversationPreview />
+        {/* Abstract, honest visual — no simulated conversation */}
+        <div className="reveal lg:col-span-5" style={{ "--reveal-delay": "100ms" }}>
+          <div className="card-surface relative overflow-hidden bg-elevated p-6 sm:p-7">
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full border border-line"
+            />
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute -right-8 -top-8 h-32 w-32 rounded-full border border-line"
+            />
+
+            <div className="relative">
+              <span className="meta">Status</span>
+              <p className="mt-2 text-[0.9375rem] text-ink">
+                {chatbotConfig.isPlaceholder
+                  ? "In development"
+                  : "Available now"}
+              </p>
+
+              <div className="mt-6 space-y-3 border-t border-line pt-6">
+                <div className="flex items-baseline justify-between gap-4">
+                  <span className="text-[0.8125rem] text-muted">Source</span>
+                  <span className="text-[0.8125rem] text-ink">
+                    Portfolio content
+                  </span>
+                </div>
+                <div className="flex items-baseline justify-between gap-4">
+                  <span className="text-[0.8125rem] text-muted">Scope</span>
+                  <span className="text-[0.8125rem] text-ink">
+                    Experience, projects, stack
+                  </span>
+                </div>
+                <div className="flex items-baseline justify-between gap-4">
+                  <span className="text-[0.8125rem] text-muted">Access</span>
+                  <span className="text-[0.8125rem] text-ink">
+                    Opens in a new tab
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </Section>

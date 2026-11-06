@@ -1,40 +1,32 @@
-import Image from "next/image";
-import Link from "next/link";
 import { personalData } from "@/utils/data/personal-data";
 import { Button, ArrowIcon, ExternalArrow } from "../../ui/button";
 import { AvailabilityDot } from "../../ui/section-heading";
 
-const STATS = [
-  { value: "4+", label: "Years shipping production software" },
-  { value: "Full-stack", label: "Frontend, APIs and graph data" },
-  { value: "Telecom", label: "Network analytics at enterprise scale" },
+const FACTS = [
+  { label: "Currently", value: "Senior Software Engineer" },
+  { label: "At", value: "Sopra Steria" },
+  { label: "Since", value: "2021" },
+  { label: "Based in", value: "Greater Noida, India" },
 ];
 
 export default function HeroSection() {
   return (
-    <section className="shell relative overflow-hidden pt-10 sm:pt-14 lg:pt-20">
+    <section className="shell relative overflow-hidden pt-12 sm:pt-16 lg:pt-24">
       <div
         aria-hidden="true"
-        className="blueprint-grid pointer-events-none absolute inset-x-0 top-0 -z-10 h-[520px] opacity-[0.55]"
+        className="blueprint-grid pointer-events-none absolute inset-x-0 top-0 -z-10 h-[560px] opacity-50"
       />
 
-      <div className="grid grid-cols-1 items-end gap-12 pb-14 lg:grid-cols-12 lg:gap-8 lg:pb-20">
-        <div className="lg:col-span-8">
+      <div className="grid grid-cols-1 gap-12 pb-14 lg:grid-cols-12 lg:gap-10 lg:pb-24">
+        <div className="lg:col-span-9">
           <div className="flex flex-wrap items-center gap-x-4 gap-y-3">
             <span className="inline-flex items-center gap-2 rounded-full border border-line bg-elevated px-3 py-1.5 text-[0.6875rem] tracking-wide text-muted">
               <AvailabilityDot />
               Open to senior engineering roles
             </span>
-            <span className="meta">
-              {personalData.location}
-            </span>
           </div>
 
-          <p className="mt-8 text-base font-light text-muted sm:text-lg">
-            {personalData.designation} · {personalData.company}
-          </p>
-
-          <h1 className="mt-3 text-[2.5rem] font-medium leading-[1.03] tracking-[-0.045em] text-ink sm:text-6xl lg:text-[5rem] xl:text-[5.25rem]">
+          <h1 className="mt-7 text-[2.35rem] font-medium leading-[1.04] tracking-[-0.04em] text-ink sm:mt-9 sm:text-6xl sm:leading-[1.02] sm:tracking-[-0.045em] lg:text-[5.25rem] xl:text-[5.75rem]">
             Building thoughtful
             <br />
             digital experiences
@@ -42,13 +34,13 @@ export default function HeroSection() {
             <span className="text-muted">through engineering.</span>
           </h1>
 
-          <p className="mt-8 max-w-xl text-[0.9375rem] leading-relaxed text-muted sm:text-base">
-            I&apos;m {personalData.name} — a {personalData.designation.toLowerCase()}{" "}
-            focused on building scalable web applications, intuitive interfaces,
-            and impactful digital products.
+          <p className="mt-7 max-w-xl text-[0.9375rem] leading-relaxed text-muted sm:mt-9 sm:text-base">
+            I&apos;m {personalData.name}, a {personalData.designation.toLowerCase()}{" "}
+            at {personalData.company}. I build scalable web applications,
+            data-dense interfaces, and the full-stack systems behind them.
           </p>
 
-          <div className="mt-10 flex flex-wrap items-center gap-3">
+          <div className="mt-9 flex flex-wrap items-center gap-3 sm:mt-11">
             <Button href="#projects" variant="primary">
               View my work
               <ArrowIcon />
@@ -57,59 +49,36 @@ export default function HeroSection() {
               href={personalData.resume}
               external
               variant="outline"
-              aria-label="Download Rajat Sharma's resume"
+              aria-label="View Rajat Sharma's profile on LinkedIn"
             >
-              Download resume
+              Resume
               <ExternalArrow />
             </Button>
-            <Link
+            <a
               href="#contact"
               className="link-underline ml-1 text-[0.8125rem] text-muted transition-colors duration-300 hover:text-ink sm:text-sm"
             >
               Or just say hello
-            </Link>
+            </a>
           </div>
         </div>
 
-        <div className="lg:col-span-4">
-          <div className="relative mx-auto max-w-[280px] lg:ml-auto lg:mr-0">
-            <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[var(--radius-lg)] border border-line bg-elevated">
-              <Image
-                src={personalData.profile}
-                alt="Portrait of Rajat Sharma"
-                fill
-                priority
-                sizes="(max-width: 1024px) 280px, 320px"
-                className="object-cover object-center"
-              />
-              <div
-                aria-hidden="true"
-                className="absolute inset-0 bg-gradient-to-t from-bg/70 via-transparent to-transparent"
-              />
-            </div>
-            <div className="mt-3 flex items-center justify-between">
-              <span className="meta">{personalData.name}</span>
-              <span className="meta">
-                {personalData.location.split(",")[0]}
-              </span>
-            </div>
-          </div>
-        </div>
+        {/* Typographic identity block — no stock portrait */}
+        <aside className="lg:col-span-3 lg:border-l lg:border-line lg:pl-8">
+          <dl className="grid grid-cols-2 gap-x-6 gap-y-5 lg:grid-cols-1 lg:gap-y-6">
+            {FACTS.map((fact) => (
+              <div key={fact.label}>
+                <dt className="meta">{fact.label}</dt>
+                <dd className="mt-1 text-[0.875rem] leading-snug text-ink">
+                  {fact.value}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </aside>
       </div>
 
-      {/* Meta strip */}
-      <div className="grid grid-cols-1 gap-px overflow-hidden rounded-[var(--radius)] border border-line bg-line sm:grid-cols-3">
-        {STATS.map((stat) => (
-          <div key={stat.label} className="bg-bg px-5 py-6 sm:px-6">
-            <p className="text-xl font-medium tracking-tight text-ink sm:text-2xl">
-              {stat.value}
-            </p>
-            <p className="mt-1.5 text-[0.8125rem] leading-snug text-muted">
-              {stat.label}
-            </p>
-          </div>
-        ))}
-      </div>
+      <div className="hairline" />
     </section>
   );
 }

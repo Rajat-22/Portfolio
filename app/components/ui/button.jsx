@@ -25,7 +25,7 @@ export function Button({
 
   const content = (
     <>
-      <span>{children}</span>
+      <span className="inline-flex items-center">{children}</span>
       {icon}
     </>
   );
@@ -107,7 +107,7 @@ export function ResumeButton({ className }) {
       external
       variant="primary"
       className={className}
-      aria-label="Download Rajat Sharma's resume"
+      aria-label="View Rajat Sharma's profile on LinkedIn"
     >
       Resume
       <svg

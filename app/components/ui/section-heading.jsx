@@ -14,8 +14,10 @@ export function SectionHeading({
   return (
     <header className={`reveal ${className}`}>
       <div className="flex items-baseline justify-between gap-6 border-b border-line pb-5">
-        <div className="flex items-baseline gap-4">
-          {index && <span className="meta shrink-0">{index}</span>}
+        <div className="flex items-baseline gap-4 sm:gap-5">
+          {index && (
+            <span className="meta shrink-0 translate-y-[-0.15em]">{index}</span>
+          )}
           <h2
             id={id}
             className="text-2xl font-medium tracking-[-0.03em] text-ink sm:text-3xl lg:text-[2.5rem]"
@@ -41,7 +43,7 @@ export function Section({ id, children, className = "", labelledBy }) {
     <section
       id={id}
       aria-labelledby={labelledBy}
-      className={`shell scroll-mt-24 py-16 sm:py-20 lg:py-28 ${className}`}
+      className={`shell scroll-mt-24 pb-16 pt-16 sm:pb-20 sm:pt-20 lg:pb-24 lg:pt-24 ${className}`}
     >
       {children}
     </section>

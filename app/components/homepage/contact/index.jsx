@@ -14,7 +14,7 @@ const SOCIALS = [
 export default function ContactSection() {
   return (
     <Section id="contact" labelledBy="contact-heading" className="border-t border-line">
-      <SectionHeading index="07" id="contact-heading" title="Get in touch" eyebrow="Open to work" />
+      <SectionHeading index="07" id="contact-heading" title="Get in touch" />
 
       <div className="mt-10 grid grid-cols-1 gap-12 lg:mt-14 lg:grid-cols-12 lg:gap-16">
         <div className="reveal lg:col-span-5">

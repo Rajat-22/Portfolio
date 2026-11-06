@@ -79,7 +79,6 @@ export default function Projects() {
         index="03"
         id="projects-heading"
         title="Selected work"
-        eyebrow="Four projects"
         description="A mix of enterprise platform work and self-directed product builds — the problems each one solves, and what I actually did."
       />
 
@@ -92,10 +91,12 @@ export default function Projects() {
 
           <div className="flex flex-col lg:col-span-5">
             <div className="flex items-center gap-3">
-              <span className="rounded-full bg-accent px-2.5 py-1 text-[0.625rem] font-semibold uppercase tracking-[0.12em] text-black">
+              <span className="inline-flex items-center rounded-full bg-accent px-2.5 py-[0.3rem] text-[0.625rem] font-semibold uppercase leading-none tracking-[0.12em] text-black">
                 Featured
               </span>
-              <span className="meta">{featuredProject.category}</span>
+              <span className="meta leading-none">
+                {featuredProject.category}
+              </span>
             </div>
 
             <h3 className="mt-5 text-2xl font-medium tracking-[-0.03em] text-ink sm:text-3xl lg:text-[2rem]">
