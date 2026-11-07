@@ -4,21 +4,13 @@ import { featuredProject, secondaryProjects } from "@/utils/data/projects-data";
 import { ExternalArrow } from "../../ui/button";
 import { Section, SectionHeading } from "../../ui/section-heading";
 
-/** Each project gets its own tint so the section reads as a set, not a list. */
-const TINTS = {
-  "intelligent-network-analyzer": { bg: "bg-blue-soft", accent: "text-blue", dot: "bg-blue" },
-  "tick-tock-store": { bg: "bg-yellow-soft", accent: "text-[#a97a12]", dot: "bg-yellow" },
-  "tap-n-play": { bg: "bg-mint-soft", accent: "text-[#1f8a68]", dot: "bg-mint" },
-  "personal-portfolio": { bg: "bg-lavender-soft", accent: "text-[#6d4fd0]", dot: "bg-lavender" },
-};
-
 function TechRow({ tools }) {
   return (
     <ul className="flex flex-wrap gap-1.5">
       {tools.map((t) => (
         <li
           key={t}
-          className="rounded-full border border-line-2 bg-white/70 px-2.5 py-1 font-mono text-[0.625rem] text-ink-2"
+          className="rounded-full border border-line-2 bg-bg-3 px-2.5 py-1 font-mono text-[0.625rem] text-ink-2"
         >
           {t}
         </li>
@@ -40,7 +32,7 @@ function DemoLink({ project }) {
       href={project.demo}
       target="_blank"
       rel="noopener noreferrer"
-      className="group inline-flex items-center gap-1.5 text-[0.8125rem] font-medium text-blue transition-colors hover:text-ink"
+      className="group inline-flex items-center gap-1.5 text-[0.8125rem] font-medium text-amber transition-colors hover:text-amber-2"
     >
       Live demo
       <ExternalArrow />
@@ -50,8 +42,6 @@ function DemoLink({ project }) {
 }
 
 export default function Projects() {
-  const tint = TINTS[featuredProject.slug] || TINTS["intelligent-network-analyzer"];
-
   return (
     <Section id="projects" labelledBy="projects-heading" className="border-t border-line">
       <SectionHeading
@@ -63,12 +53,12 @@ export default function Projects() {
       />
 
       {/* FLAGSHIP */}
-      <article className="reveal mt-10 overflow-hidden rounded-[12px] border border-line-2 lg:mt-14">
-        <div className={`grid grid-cols-1 lg:grid-cols-12 ${tint.bg}`}>
+      <article className="reveal mt-10 overflow-hidden rounded-[12px] border border-line-2 bg-bg-2 lg:mt-14">
+        <div className="grid grid-cols-1 lg:grid-cols-12">
           <div className="p-7 sm:p-9 lg:col-span-5 lg:p-10">
             <div className="flex items-center gap-2.5">
-              <span className="tag bg-white/80 text-ink-2">
-                <span className={`h-1 w-1 rounded-full ${tint.dot}`} />
+              <span className="tag bg-amber/10 text-amber">
+                <span className="h-1 w-1 rounded-full bg-amber" />
                 Featured
               </span>
               <span className="font-mono text-[0.625rem] uppercase tracking-[0.12em] text-ink-3">
@@ -98,14 +88,14 @@ export default function Projects() {
                 >
                   <span
                     aria-hidden="true"
-                    className={`mt-[0.45rem] h-1 w-1 shrink-0 rounded-full ${tint.dot}`}
+                    className="mt-[0.45rem] h-1 w-1 shrink-0 rounded-full bg-amber"
                   />
                   {h}
                 </li>
               ))}
             </ul>
 
-            <div className="mt-6 border-t border-ink/10 pt-4">
+            <div className="mt-6 border-t border-line pt-4">
               <p className="font-mono text-[0.5625rem] uppercase tracking-[0.12em] text-ink-3">
                 My contribution
               </p>
@@ -137,21 +127,18 @@ export default function Projects() {
         </div>
       </article>
 
-      {/* SECONDARY — alternating, each with its own tint */}
-      <div className="mt-10 space-y-8 lg:mt-12 lg:space-y-10">
+      {/* SECONDARY */}
+      <div className="mt-8 space-y-6 lg:mt-10 lg:space-y-8">
         {secondaryProjects.map((project, index) => {
-          const t = TINTS[project.slug] || TINTS["tick-tock-store"];
           const reversed = index % 2 === 1;
 
           return (
             <article
               key={project.id}
-              className="reveal overflow-hidden rounded-[12px] border border-line-2"
+              className="reveal overflow-hidden rounded-[12px] border border-line-2 bg-bg-2"
               style={{ "--reveal-delay": `${index * 60}ms` }}
             >
-              <div
-                className={`grid grid-cols-1 items-stretch lg:grid-cols-12 ${t.bg}`}
-              >
+              <div className="grid grid-cols-1 items-stretch lg:grid-cols-12">
                 <div
                   className={`lg:col-span-6 ${reversed ? "lg:order-2" : "lg:order-1"}`}
                 >
@@ -192,7 +179,7 @@ export default function Projects() {
 
                   <div className="mt-auto pt-5">
                     <TechRow tools={project.tools} />
-                    <div className="mt-4 border-t border-ink/10 pt-3.5">
+                    <div className="mt-4 border-t border-line pt-3.5">
                       <DemoLink project={project} />
                     </div>
                   </div>

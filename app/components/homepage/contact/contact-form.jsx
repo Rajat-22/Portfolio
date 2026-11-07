@@ -13,7 +13,7 @@ const EMAILJS_PUBLIC_KEY = "Q-anB_0Teb0AWe3TE";
 const EMPTY = { name: "", email: "", message: "" };
 
 const fieldClasses =
-  "w-full rounded-[4px] border border-line-2 bg-white px-3.5 py-3 text-[0.875rem] text-ink placeholder:text-ink-3 transition-colors duration-300 focus:border-blue focus:outline-none";
+  "w-full rounded-[4px] border border-line-2 bg-bg-2 px-3.5 py-3 text-[0.875rem] text-ink placeholder:text-ink-3 transition-colors duration-300 focus:border-amber focus:outline-none";
 
 export default function ContactForm() {
   const [values, setValues] = useState(EMPTY);
@@ -94,7 +94,7 @@ export default function ContactForm() {
             className={fieldClasses}
           />
           {errors.name && (
-            <p id="contact-name-error" className="mt-1.5 text-xs text-red-600">
+            <p id="contact-name-error" className="mt-1.5 text-xs text-coral">
               {errors.name}
             </p>
           )}
@@ -123,7 +123,7 @@ export default function ContactForm() {
             className={fieldClasses}
           />
           {errors.email && (
-            <p id="contact-email-error" className="mt-1.5 text-xs text-red-600">
+            <p id="contact-email-error" className="mt-1.5 text-xs text-coral">
               {errors.email}
             </p>
           )}
@@ -154,7 +154,7 @@ export default function ContactForm() {
         />
         <div className="mt-1.5 flex items-baseline justify-between gap-4">
           {errors.message ? (
-            <p id="contact-message-error" className="text-xs text-red-600">
+            <p id="contact-message-error" className="text-xs text-coral">
               {errors.message}
             </p>
           ) : (
@@ -172,7 +172,7 @@ export default function ContactForm() {
         <button
           type="submit"
           disabled={loading}
-          className="group inline-flex items-center gap-2 rounded-full bg-blue px-5 py-3 text-[0.8125rem] font-medium text-white transition-all duration-300 ease-editorial hover:bg-[#2450d4] disabled:cursor-not-allowed disabled:opacity-60 sm:px-6 sm:text-sm"
+          className="group inline-flex items-center gap-2 rounded-full bg-amber px-5 py-3 text-[0.8125rem] font-medium text-\[#0b0b0d\] transition-all duration-300 ease-editorial hover:bg-amber-2 disabled:cursor-not-allowed disabled:opacity-60 sm:px-6 sm:text-sm"
         >
           {loading ? "Sending…" : "Send message"}
           <svg

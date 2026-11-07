@@ -12,7 +12,7 @@ const SOCIALS = [
 
 export default function ContactSection() {
   return (
-    <section id="contact" className="border-t border-line bg-paper-2 py-16 sm:py-20 lg:py-24">
+    <section id="contact" className="border-t border-line bg-bg-2 py-16 sm:py-20 lg:py-24">
       <div className="shell">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-14">
           <div className="reveal lg:col-span-5">
@@ -23,7 +23,7 @@ export default function ContactSection() {
               <br />
               something
               <br />
-              <span className="text-blue">good.</span>
+              <span className="text-amber">good.</span>
             </h2>
 
             <p className="mt-6 max-w-sm text-[0.9375rem] leading-relaxed text-ink-2">
@@ -31,7 +31,7 @@ export default function ContactSection() {
               Email is fastest — the form works too.
             </p>
 
-            <div className="mt-7 inline-flex items-center gap-2 rounded-full border border-line-2 bg-paper-3 px-3 py-1.5 font-mono text-[0.625rem] uppercase tracking-[0.12em] text-ink-2">
+            <div className="mt-7 inline-flex items-center gap-2 rounded-full border border-line-2 bg-bg-3 px-3 py-1.5 font-mono text-[0.625rem] uppercase tracking-[0.12em] text-ink-2">
               <AvailabilityDot />
               Available for senior roles
             </div>
@@ -39,7 +39,7 @@ export default function ContactSection() {
             <div className="mt-8 space-y-px overflow-hidden rounded-[10px] border border-line-2 bg-line-2">
               <a
                 href={`mailto:${personalData.email}`}
-                className="group flex items-center justify-between gap-4 bg-paper-3 px-5 py-4 transition-colors duration-300 hover:bg-white"
+                className="group flex items-center justify-between gap-4 bg-bg-3 px-5 py-4 transition-colors duration-300 hover:bg-bg-4"
               >
                 <span className="min-w-0">
                   <span className="label block">Email</span>
@@ -47,12 +47,12 @@ export default function ContactSection() {
                     {personalData.email}
                   </span>
                 </span>
-                <ExternalArrow className="shrink-0 text-ink-3 group-hover:text-blue" />
+                <ExternalArrow className="shrink-0 text-ink-3 group-hover:text-amber" />
               </a>
 
               <a
                 href={`tel:${personalData.phone.replace(/[^\d+]/g, "")}`}
-                className="group flex items-center justify-between gap-4 bg-paper-3 px-5 py-4 transition-colors duration-300 hover:bg-white"
+                className="group flex items-center justify-between gap-4 bg-bg-3 px-5 py-4 transition-colors duration-300 hover:bg-bg-4"
               >
                 <span>
                   <span className="label block">Phone</span>
@@ -83,7 +83,7 @@ export default function ContactSection() {
           </div>
 
           <div className="reveal lg:col-span-7" style={{ "--reveal-delay": "100ms" }}>
-            <div className="rounded-[10px] border border-line-2 bg-paper-3 p-6 sm:p-8">
+            <div className="rounded-[10px] border border-line-2 bg-bg-3 p-6 sm:p-8">
               <ContactForm />
             </div>
           </div>

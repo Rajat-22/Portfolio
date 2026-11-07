@@ -4,8 +4,6 @@
  */
 export const personalData = {
   name: "Rajat Sharma",
-  shortName: "Rajat",
-  initials: "RS",
   designation: "Senior Software Engineer",
   company: "Sopra Steria",
   location: "Greater Noida, India",
@@ -13,15 +11,10 @@ export const personalData = {
   email: "rajatsharma221098@gmail.com",
   phone: "+91-9873957498",
   profile: "/profile.jpg",
-  tagline: "Building thoughtful digital experiences through engineering.",
-  summary:
-    "Senior Software Engineer focused on building scalable web applications, intuitive interfaces, and impactful digital products.",
   resume: "https://www.linkedin.com/in/rajatsharma22",
   github: "https://github.com/Rajat-22",
   linkedIn: "https://www.linkedin.com/in/rajatsharma22",
   twitter: "https://twitter.com/_mr_Rajat_?s=09",
-  whatsAppUrl:
-    "https://wa.me/+919454276383?text=Hello%20I%20want%20to%20connect%20with%20you",
 };
 
 /**

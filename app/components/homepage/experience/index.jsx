@@ -21,20 +21,18 @@ export default function Experience() {
       />
 
       <div className="mt-10 grid grid-cols-1 gap-10 lg:mt-14 lg:grid-cols-12 lg:gap-14">
-        {/* Timeline */}
         <div className="lg:col-span-5">
           <ol className="relative">
-            {/* Rail */}
             <span
               aria-hidden="true"
               className="absolute left-[7px] top-2 h-[calc(100%-1rem)] w-px bg-line-2"
             />
 
             <li className="relative pb-10 pl-8">
-              <span className="absolute left-0 top-1.5 flex h-[15px] w-[15px] items-center justify-center rounded-full border-2 border-blue bg-paper">
-                <span className="h-1.5 w-1.5 rounded-full bg-blue" />
+              <span className="absolute left-0 top-1.5 flex h-[15px] w-[15px] items-center justify-center rounded-full border-2 border-amber bg-bg">
+                <span className="h-1.5 w-1.5 rounded-full bg-amber" />
               </span>
-              <p className="font-mono text-[0.625rem] uppercase tracking-[0.12em] text-blue">
+              <p className="font-mono text-[0.625rem] uppercase tracking-[0.12em] text-amber">
                 Jul 2021 — Present
               </p>
               <h3 className="mt-1.5 text-[1.0625rem] font-semibold text-ink">
@@ -52,8 +50,8 @@ export default function Experience() {
                 </div>
                 <p className="text-[0.875rem] text-ink-2">{role.company}</p>
               </div>
-              <span className="tag mt-2.5 bg-blue-soft text-blue">
-                <span className="h-1 w-1 rounded-full bg-blue" />
+              <span className="tag mt-2.5 bg-amber/10 text-amber">
+                <span className="h-1 w-1 rounded-full bg-amber" />
                 Current
               </span>
 
@@ -63,7 +61,7 @@ export default function Experience() {
                   {role.stack.map((tech) => (
                     <li
                       key={tech}
-                      className="rounded-full border border-line-2 bg-paper-3 px-2.5 py-1 font-mono text-[0.625rem] text-ink-2"
+                      className="rounded-full border border-line-2 bg-bg-2 px-2.5 py-1 font-mono text-[0.625rem] text-ink-2"
                     >
                       {tech}
                     </li>
@@ -73,8 +71,8 @@ export default function Experience() {
             </li>
 
             <li className="relative pl-8">
-              <span className="absolute left-0 top-1.5 flex h-[15px] w-[15px] items-center justify-center rounded-full border-2 border-line-2 bg-paper">
-                <span className="h-1.5 w-1.5 rounded-full bg-line-2" />
+              <span className="absolute left-0 top-1.5 flex h-[15px] w-[15px] items-center justify-center rounded-full border-2 border-line-3 bg-bg">
+                <span className="h-1.5 w-1.5 rounded-full bg-line-3" />
               </span>
               <p className="font-mono text-[0.625rem] uppercase tracking-[0.12em] text-ink-3">
                 {degree.duration}
@@ -92,11 +90,10 @@ export default function Experience() {
           </ol>
         </div>
 
-        {/* Detail card */}
         <div className="lg:col-span-7">
-          <div className="reveal overflow-hidden rounded-[10px] border border-line-2 bg-paper-3">
-            <div className="border-b border-line bg-blue-soft px-6 py-4 sm:px-7">
-              <p className="font-mono text-[0.625rem] uppercase tracking-[0.12em] text-blue">
+          <div className="reveal overflow-hidden rounded-[10px] border border-line-2 bg-bg-2">
+            <div className="border-b border-line bg-bg-3 px-6 py-4 sm:px-7">
+              <p className="font-mono text-[0.625rem] uppercase tracking-[0.12em] text-amber">
                 Senior Software Engineer · Sopra Steria
               </p>
             </div>
@@ -116,14 +113,13 @@ export default function Experience() {
                     >
                       <span
                         aria-hidden="true"
-                        className="mt-[0.45rem] h-1 w-1 shrink-0 rounded-full bg-coral"
+                        className="mt-[0.45rem] h-1 w-1 shrink-0 rounded-full bg-amber"
                       />
                       {item}
                     </li>
                   ))}
                 </ul>
               </div>
-
             </div>
           </div>
         </div>

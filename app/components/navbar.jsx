@@ -9,38 +9,12 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState("");
-  const [onDark, setOnDark] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  // Invert the bar while it overlaps a dark section.
-  useEffect(() => {
-    const darkSections = Array.from(
-      document.querySelectorAll("[data-nav-theme='dark']")
-    );
-    if (!darkSections.length) return;
-
-    const onScroll = () => {
-      const barBottom = 68;
-      const overDark = darkSections.some((el) => {
-        const r = el.getBoundingClientRect();
-        return r.top <= barBottom && r.bottom >= barBottom;
-      });
-      setOnDark(overDark);
-    };
-
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-    };
   }, []);
 
   useEffect(() => {
@@ -79,13 +53,10 @@ export default function Navbar() {
 
   return (
     <header
-      className={`sticky top-0 z-50 transition-all duration-500 ease-editorial ${
-        onDark && !open
-          ? "border-b border-night-line bg-night/95 backdrop-blur-md"
-          : scrolled || open
-            ? "border-b border-line bg-paper/92 backdrop-blur-md"
-            : "border-b border-transparent bg-transparent"
-      }`}
+      className={`sticky top-0 z-50 transition-all duration-500 ease-editorial ${scrolled || open
+          ? "border-b border-line bg-bg/90 backdrop-blur-md"
+          : "border-b border-transparent bg-transparent"
+        }`}
     >
       <nav
         aria-label="Primary"
@@ -97,44 +68,32 @@ export default function Navbar() {
           className="group flex items-baseline gap-2.5"
           aria-label="Rajat Sharma — home"
         >
-          <span
-            className={`display-tight text-[1.0625rem] tracking-[-0.02em] transition-colors duration-300 ${
-              onDark && !open ? "text-night-ink" : "text-ink"
-            }`}
-          >
+          <span className="display-tight text-[1.0625rem] tracking-[-0.02em] text-ink">
             Rajat Sharma
           </span>
-          <span
-            className={`hidden font-mono text-[0.625rem] uppercase tracking-[0.14em] transition-colors duration-300 sm:inline ${
-              onDark && !open ? "text-night-muted" : "text-ink-3"
-            }`}
-          >
+          <span className="hidden font-mono text-[0.625rem] uppercase tracking-[0.14em] text-ink-3 sm:inline">
             / Engineer
           </span>
         </Link>
 
-        <ul className="hidden items-center gap-1 md:flex">
-          {navigation.map((item) => {
+        <ul className="hidden items-center gap-1 lg:flex">
+          {navigation.map((item, i) => {
             const isActive = active === item.href.slice(1);
             return (
               <li key={item.href}>
                 <Link
                   href={item.href}
                   aria-current={isActive ? "true" : undefined}
-                  className={`relative block rounded-full px-3.5 py-2 text-[0.8125rem] transition-colors duration-300 ${
-                    onDark && !open
-                      ? isActive
-                        ? "text-night-ink"
-                        : "text-night-muted hover:text-night-ink"
-                      : isActive
-                        ? "text-ink"
-                        : "text-ink-2 hover:text-ink"
-                  }`}
+                  className={`relative flex items-baseline gap-1.5 rounded-full px-3.5 py-2 text-[0.8125rem] transition-colors duration-300 ${isActive ? "text-ink" : "text-ink-2 hover:text-ink"
+                    }`}
                 >
+                  <span className="font-mono text-[0.5625rem] text-ink-3">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
                   {item.label}
                   <span
                     aria-hidden="true"
-                    className={`absolute inset-x-3.5 bottom-0.5 h-[2px] origin-left rounded-full bg-blue transition-transform duration-300 ease-editorial ${isActive ? "scale-x-100" : "scale-x-0"
+                    className={`absolute inset-x-3.5 bottom-0.5 h-[2px] origin-left rounded-full bg-amber transition-transform duration-300 ease-editorial ${isActive ? "scale-x-100" : "scale-x-0"
                       }`}
                   />
                 </Link>
@@ -144,21 +103,14 @@ export default function Navbar() {
         </ul>
 
         <div className="flex items-center gap-2">
-          <ResumeButton
-            className="hidden sm:inline-flex"
-            variant={onDark && !open ? "light" : "dark"}
-          />
+          <ResumeButton className="hidden sm:inline-flex" />
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
             aria-expanded={open}
             aria-controls="mobile-menu"
             aria-label={open ? "Close menu" : "Open menu"}
-            className={`flex h-10 w-10 items-center justify-center rounded-full border transition-colors duration-300 md:hidden ${
-              onDark && !open
-                ? "border-night-line text-night-ink hover:border-night-ink"
-                : "border-line-2 text-ink hover:border-ink"
-            }`}
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-line-3 text-ink transition-colors duration-300 hover:border-amber hover:text-amber lg:hidden"
           >
             <span className="relative block h-3 w-4" aria-hidden="true">
               <span
@@ -178,7 +130,7 @@ export default function Navbar() {
         </div>
       </nav>
 
-      <div id="mobile-menu" hidden={!open} className="shell md:hidden">
+      <div id="mobile-menu" hidden={!open} className="shell lg:hidden">
         <div className="flex flex-col border-t border-line pb-8 pt-2">
           {navigation.map((item, i) => (
             <Link

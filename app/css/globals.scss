@@ -3,7 +3,9 @@
 @tailwind utilities;
 
 /* ===============================================================
-   Design tokens — light-first editorial engineering identity
+   Design tokens — dark editorial with warm amber accents.
+   Modelled on the reference's visual language: near-black canvas,
+   warm off-white type, one amber accent, muted secondary hues.
    =============================================================== */
 :root {
   --font-display:
@@ -14,41 +16,34 @@
     Roboto, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 
-  /* Surfaces */
-  --paper: #f5f3ee;
-  --paper-2: #e9edf3;
-  --paper-3: #fbfaf7;
-  --ink: #17243a;
-  --ink-2: #657085;
-  --ink-3: #8d97a8;
+  /* Surfaces — layered near-blacks, not flat #000 */
+  --bg: #0b0b0d;
+  --bg-2: #111114;
+  --bg-3: #17171b;
+  --bg-4: #1e1e23;
 
-  /* Accents — one primary, two secondary, three occasional */
-  --blue: #315fe8;
-  --blue-soft: #e4eaff;
-  --orange: #f08b50;
-  --orange-soft: #fdeee4;
+  /* Type */
+  --ink: #f4f1ea;
+  --ink-2: #a8a49c;
+  --ink-3: #6f6c66;
+
+  /* Accent — warm amber, the reference's signature */
+  --amber: #f5b544;
+  --amber-2: #ffc96b;
+  --amber-soft: rgba(245, 181, 68, 0.12);
+
+  /* Secondary hues, used sparingly */
   --coral: #f2685c;
-  --coral-soft: #fde8e5;
+  --mint: #5fd3a8;
   --lavender: #a78bfa;
-  --lavender-soft: #efe9fe;
-  --mint: #4ec9a0;
-  --mint-soft: #e2f7ef;
-  --yellow: #f5c451;
-  --yellow-soft: #fdf3d9;
+  --sky: #5aa9f5;
 
   /* Lines */
-  --line: #dcd8ce;
-  --line-2: #c9c4b7;
-  --line-cool: #d3dae4;
+  --line: #232328;
+  --line-2: #2e2e35;
+  --line-3: #3a3a43;
 
-  /* Dark section */
-  --night: #17243a;
-  --night-2: #1f2f49;
-  --night-line: #2c3d59;
-  --night-ink: #f5f3ee;
-  --night-muted: #9aa8bd;
-
-  --shell: 1320px;
+  --shell: 1240px;
   --gutter: 1.25rem;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -60,7 +55,7 @@
 }
 @media (min-width: 1024px) {
   :root {
-    --gutter: 3.5rem;
+    --gutter: 3rem;
   }
 }
 
@@ -76,7 +71,7 @@
   }
 
   body {
-    background-color: var(--paper);
+    background-color: var(--bg);
     color: var(--ink);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
@@ -85,12 +80,12 @@
   }
 
   ::selection {
-    background: var(--blue);
-    color: #fff;
+    background: var(--amber);
+    color: #0b0b0d;
   }
 
   :focus-visible {
-    outline: 2px solid var(--blue);
+    outline: 2px solid var(--amber);
     outline-offset: 3px;
     border-radius: 2px;
   }
@@ -110,12 +105,12 @@
     width: 11px;
   }
   ::-webkit-scrollbar-track {
-    background: var(--paper);
+    background: var(--bg);
   }
   ::-webkit-scrollbar-thumb {
-    background: var(--line-2);
+    background: var(--line-3);
     border-radius: 999px;
-    border: 3px solid var(--paper);
+    border: 3px solid var(--bg);
   }
 }
 
@@ -127,19 +122,18 @@
     padding-inline: var(--gutter);
   }
 
-  /* Display type — the identity of the site */
   .display {
     font-family: var(--font-display);
     font-weight: 600;
     letter-spacing: -0.045em;
-    line-height: 0.94;
+    line-height: 0.95;
   }
 
   .display-tight {
     font-family: var(--font-display);
     font-weight: 600;
     letter-spacing: -0.035em;
-    line-height: 1.02;
+    line-height: 1.05;
   }
 
   .label {
@@ -150,27 +144,13 @@
     color: var(--ink-3);
   }
 
-  .label-ink {
-    font-family: var(--font-mono);
-    font-size: 0.6875rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--ink-2);
-  }
-
   .rule {
     height: 1px;
     width: 100%;
     background: var(--line);
   }
 
-  .rule-cool {
-    height: 1px;
-    width: 100%;
-    background: var(--line-cool);
-  }
-
-  /* Section index marker */
+  /* Section index marker — the reference's numbered sections */
   .index-mark {
     display: inline-flex;
     align-items: center;
@@ -186,60 +166,30 @@
     content: "";
     width: 1.75rem;
     height: 1px;
-    background: var(--blue);
+    background: var(--amber);
   }
 
-  /* Paper grain — subtle, only on the hero */
-  .grain {
+  /* Warm glow behind the hero */
+  .glow {
     background-image:
       radial-gradient(
-        circle at 15% 20%,
-        rgba(49, 95, 232, 0.06),
-        transparent 42%
+        ellipse 60% 50% at 20% 0%,
+        rgba(245, 181, 68, 0.09),
+        transparent 60%
       ),
       radial-gradient(
-        circle at 88% 8%,
-        rgba(240, 139, 80, 0.07),
-        transparent 38%
+        ellipse 50% 40% at 85% 10%,
+        rgba(90, 169, 245, 0.06),
+        transparent 60%
       );
   }
 
-  .dot-grid {
-    background-image: radial-gradient(var(--line-2) 1px, transparent 1px);
-    background-size: 22px 22px;
-  }
-
-  .blueprint {
-    background-image:
-      linear-gradient(var(--line-cool) 1px, transparent 1px),
-      linear-gradient(90deg, var(--line-cool) 1px, transparent 1px);
-    background-size: 56px 56px;
-  }
-
-  /* Colour-block section backgrounds — used sparingly, one per section */
-  .tint-blue {
-    background: var(--blue-soft);
-  }
-  .tint-lavender {
-    background: var(--lavender-soft);
-  }
-  .tint-mint {
-    background: var(--mint-soft);
-  }
-  .tint-yellow {
-    background: var(--yellow-soft);
-  }
-  .tint-coral {
-    background: var(--coral-soft);
-  }
-
-  /* Small pill label with a colour dot */
   .tag {
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
     border-radius: 999px;
-    padding: 0.25rem 0.6rem;
+    padding: 0.25rem 0.65rem;
     font-family: var(--font-mono);
     font-size: 0.625rem;
     letter-spacing: 0.1em;
@@ -255,10 +205,10 @@
 
   .js-ready .reveal {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(22px);
     transition:
-      opacity 0.75s var(--ease),
-      transform 0.75s var(--ease);
+      opacity 0.8s var(--ease),
+      transform 0.8s var(--ease);
     transition-delay: var(--reveal-delay, 0ms);
   }
 

@@ -34,6 +34,3 @@ export const skillGroups = [
     skills: ["Git", "Figma"],
   },
 ];
-
-// Flat list used for the marquee / summary line.
-export const skillsData = skillGroups.flatMap((group) => group.skills);

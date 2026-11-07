@@ -3,12 +3,11 @@ import { personalData } from "@/utils/data/personal-data";
 
 const VARIANTS = {
   primary:
-    "bg-blue text-white border-blue hover:bg-[#2450d4] hover:border-[#2450d4]",
-  dark: "bg-ink text-paper border-ink hover:bg-[#0f1a2c] hover:border-[#0f1a2c]",
+    "bg-amber text-[#0b0b0d] border-amber hover:bg-amber-2 hover:border-amber-2",
+  dark: "bg-ink text-[#0b0b0d] border-ink hover:bg-white hover:border-white",
   outline:
-    "bg-transparent text-ink border-line-2 hover:border-ink hover:bg-paper-3",
-  light:
-    "bg-paper text-ink border-paper hover:bg-white hover:border-white",
+    "bg-transparent text-ink border-line-3 hover:border-amber hover:text-amber",
+  light: "bg-bg-3 text-ink border-line-2 hover:border-line-3 hover:bg-bg-4",
 };
 
 export function Button({
@@ -94,7 +93,7 @@ export function ExternalArrow({ className = "" }) {
   );
 }
 
-export function ResumeButton({ className = "", variant = "dark" }) {
+export function ResumeButton({ className = "", variant = "primary" }) {
   return (
     <Button
       href={personalData.resume}

@@ -50,8 +50,8 @@ export const metadata = {
 };
 
 export const viewport = {
-  themeColor: "#f5f3ee",
-  colorScheme: "light",
+  themeColor: "#0b0b0d",
+  colorScheme: "dark",
   width: "device-width",
   initialScale: 1,
 };
@@ -76,13 +76,13 @@ export default function RootLayout({ children }) {
       <body className="font-sans antialiased">
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-blue focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-white"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-amber focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-\[#0b0b0d\]"
         >
           Skip to content
         </a>
         <ToastContainer
           position="bottom-right"
-          theme="light"
+          theme="dark"
           autoClose={4500}
           hideProgressBar
         />

@@ -6,17 +6,14 @@ const PRINCIPLES = [
   {
     title: "Start at the data",
     body: "Most interface problems are data problems wearing a costume. I model the information before I touch the layout.",
-    dot: "bg-blue",
   },
   {
     title: "Measure, then optimise",
     body: "Performance work begins with a number. If it isn't faster for a real user on a real device, it isn't finished.",
-    dot: "bg-coral",
   },
   {
     title: "Build for the next engineer",
     body: "Readable systems outlive clever ones. I optimise for the person who has to change this code in a year.",
-    dot: "bg-mint",
   },
 ];
 
@@ -26,12 +23,11 @@ export default function AboutSection() {
       <SectionHeading index="01" id="about-heading" title="About me" aside="The story" />
 
       <div className="mt-10 grid grid-cols-1 gap-12 lg:mt-14 lg:grid-cols-12 lg:gap-14">
-        {/* Portrait + colour block */}
         <div className="reveal lg:col-span-4">
           <div className="relative">
             <div
               aria-hidden="true"
-              className="absolute -left-4 -top-4 h-full w-full rounded-[10px] bg-lavender-soft ring-1 ring-lavender/25"
+              className="absolute -inset-2 rounded-[14px] border border-line-2"
             />
             <div className="relative overflow-hidden rounded-[10px] border border-line-2">
               <div className="relative aspect-[4/5] w-full">
@@ -46,7 +42,7 @@ export default function AboutSection() {
             </div>
           </div>
 
-          <dl className="mt-6 space-y-3">
+          <dl className="mt-7 space-y-3">
             {[
               ["Based in", personalData.location],
               ["Focus", "Full-stack engineering"],
@@ -62,7 +58,6 @@ export default function AboutSection() {
           </dl>
         </div>
 
-        {/* Story */}
         <div className="reveal lg:col-span-8" style={{ "--reveal-delay": "80ms" }}>
           <p className="display-tight text-[1.5rem] leading-[1.3] text-ink sm:text-[1.875rem] lg:text-[2.125rem]">
             I started in the interface and kept digging down until I understood
@@ -93,15 +88,12 @@ export default function AboutSection() {
             {PRINCIPLES.map((p, i) => (
               <div
                 key={p.title}
-                className="reveal rounded-[8px] border border-line-2 bg-paper-3 p-4"
+                className="reveal rounded-[8px] border border-line-2 bg-bg-2 p-4"
                 style={{ "--reveal-delay": `${140 + i * 70}ms` }}
               >
-                <div className="flex items-center gap-2">
-                  <span className={`h-1.5 w-1.5 rounded-full ${p.dot}`} />
-                  <h3 className="text-[0.8125rem] font-semibold text-ink">
-                    {p.title}
-                  </h3>
-                </div>
+                <h3 className="text-[0.8125rem] font-semibold text-ink">
+                  {p.title}
+                </h3>
                 <p className="mt-2 text-[0.75rem] leading-relaxed text-ink-2">
                   {p.body}
                 </p>
